@@ -1,0 +1,51 @@
+.container {
+    user-select: none;
+}
+
+.container h1{
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2em;
+    cursor: default;
+}
+
+.flexbox {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 50%;
+    margin: auto;
+}
+
+.flexbox label {
+    display: block;
+    margin-bottom: 0.5rem;
+    cursor: default;
+}
+
+.flexbox input {
+    font-size: 0.8em;
+    border-bottom: 2px solid black;
+    padding: 0.3rem;
+    width: 100%;
+}
+
+.flexbox input:focus {
+    border-bottom: 3px solid #0000ff;
+}
+
+.flexbox select {
+    border: 2px solid black;
+}
+
+.error {
+    font-size: 0.8em;
+    color: red;
+}
+
+.buttons_container {
+    margin-top: 2em;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}

@@ -1,0 +1,18 @@
+.button {
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 0.3em 2em;
+    background-color: #ffefd5;
+    min-width: 125px;
+}
+
+.button:hover {
+    background-color: #ead8b9;
+}
+
+@media (max-width: 768px) {
+    .button {
+        padding: 0.3em 1em;
+        min-width: 60px;
+    }
+}
