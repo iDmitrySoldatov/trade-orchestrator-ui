@@ -25,7 +25,7 @@ jobs:
       - name: Verify deployment version matches package.json
         run: |
           # Получаем версию из stage-deployment.yml
-          DEPLOYMENT_VERSION=$(grep -oP "image:.*:\K[0-9.]+" k3s/stage-deployment.yml)
+          DEPLOYMENT_VERSION=$(grep -oP "image:.*:\K[0-9.]+" k8s/stage-deployment.yml)
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
           
           if [ "$DEPLOYMENT_VERSION" != "$PACKAGE_VERSION" ]; then
