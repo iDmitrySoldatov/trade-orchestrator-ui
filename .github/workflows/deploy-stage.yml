@@ -1,0 +1,53 @@
+name: deploy-stage
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install
+      - name: Run ESLint
+        run: npm run lint
+      - name: build
+        run: npm run build
+      - name: Get version from package.json
+        id: version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+      - name: Verify deployment version matches package.json
+        run: |
+          # Получаем версию из stage-deployment.yml
+          DEPLOYMENT_VERSION=$(grep -oP "image:.*:\K[0-9.]+" k3s/stage-deployment.yml)
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          
+          if [ "$DEPLOYMENT_VERSION" != "$PACKAGE_VERSION" ]; then
+            echo "Version mismatch!"
+            echo "package.json version: $PACKAGE_VERSION"
+            echo "stage-deployment.yml version: $DEPLOYMENT_VERSION"
+            exit 1
+          fi
+          echo "Versions match: $PACKAGE_VERSION"
+      - name: build image
+        run: docker build . -t docker.samurai-trading.ru/trade-front:${{ steps.version.outputs.version }}
+      - name: docker login
+        uses: docker/login-action@v3
+        with:
+          registry: docker.samurai-trading.ru
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: docker push
+        run: docker push docker.samurai-trading.ru/trade-front:${{ steps.version.outputs.version }}
+      - uses: tale/kubectl-action@v1
+        with:
+          base64-kube-config: ${{ secrets.KUBE_CONFIG }}
+      - run: kubectl apply -f k3s/stage-deployment.yml
