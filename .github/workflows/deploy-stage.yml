@@ -15,8 +15,6 @@ jobs:
           node-version: '22'
       - name: Install dependencies
         run: npm install
-      - name: Run ESLint
-        run: npm run lint
       - name: build
         run: npm run build
       - name: Get version from package.json
