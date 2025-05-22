@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trade-front
+  namespace: stage
+  labels:
+    app: trade-front
+spec:
+  replicas: 1
+  strategy:
+    type: 'Recreate'
+  selector:
+    matchLabels:
+      app: trade-front
+  template:
+    metadata:
+      labels:
+        app: trade-front
+    spec:
+      containers:
+        - name: trade-front
+          image: 'docker.samurai-trading.ru/myfit-front:0.6'
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 500Mi
+            requests:
+              cpu: 250m
+              memory: 250Mi
