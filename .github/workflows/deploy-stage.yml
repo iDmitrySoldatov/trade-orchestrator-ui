@@ -48,4 +48,4 @@ jobs:
       - uses: tale/kubectl-action@v1
         with:
           base64-kube-config: ${{ secrets.KUBE_CONFIG }}
-      - run: kubectl apply -f k3s/stage-deployment.yml
+      - run: kubectl apply -f k8s/stage-deployment.yml
