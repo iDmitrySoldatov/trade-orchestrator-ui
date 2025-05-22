@@ -42,7 +42,7 @@ jobs:
         with:
           registry: docker.samurai-trading.ru
           username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          password: ${{ secrets.DOCKER_PASS }}
       - name: docker push
         run: docker push docker.samurai-trading.ru/trade-front:${{ steps.version.outputs.version }}
       - uses: tale/kubectl-action@v1
