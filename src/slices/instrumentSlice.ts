@@ -8,11 +8,11 @@ interface IAddRequest {
 }
 
 export const fetchGetAll = createAsyncThunk<IInstrument[]>(
-    "instrument/fetchGetAll",
+    "/instrument/fetchGetAll",
     async (_, {rejectWithValue}) => {
       console.log('пошло')
       try {
-        return await request("instrument");
+        return await request("/instrument");
       } catch (error) {
         return rejectWithValue((error as IError).message);
       }
@@ -20,10 +20,10 @@ export const fetchGetAll = createAsyncThunk<IInstrument[]>(
 )
 
 export const fetchAddSymbol = createAsyncThunk<null, IAddRequest>(
-    'instrument/fetchAddSymbol',
+    '/instrument/fetchAddSymbol',
     async (data, {rejectWithValue}) => {
       try {
-        return await request("instrument", {
+        return await request("/instrument", {
           method: "POST", headers: {
             "Content-Type": "application/json",
           }, body: JSON.stringify({symbol: data.symbol, exchange: data.exchange}),

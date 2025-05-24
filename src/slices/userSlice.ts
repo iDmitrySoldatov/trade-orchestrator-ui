@@ -11,7 +11,7 @@ export const fetchLogin = createAsyncThunk<IUser, ILoginRequest>(
     "user/fetchLogin",
     async (data, {rejectWithValue}) => {
       try {
-        return await request("user/login", {
+        return await request("/user/login", {
           method: "POST", headers: {
             "Content-Type": "application/json",
           }, body: JSON.stringify({phone: data.phone, token: data.token})
@@ -26,7 +26,7 @@ export const fetchLogout = createAsyncThunk<IUser>(
     "user/fetchLogout",
     async (_, {rejectWithValue}) => {
         try {
-            return await request("user/logout");
+            return await request("/user/logout");
         } catch (error) {
             return rejectWithValue((error as IError).message);
         }
@@ -37,7 +37,7 @@ export const fetchCheck = createAsyncThunk<IUser>(
     'user/fetchCheck',
     async (_, {rejectWithValue}) => {
       try {
-        return await request("user/check", {credentials: "include"});
+        return await request("/user/check", {credentials: "include"});
       } catch (error) {
         return rejectWithValue((error as IError).message);
       }

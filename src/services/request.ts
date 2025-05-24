@@ -4,7 +4,7 @@ import {IError} from "../utils/types.ts";
 export const request = (endpoint: string, options?: RequestInit) => {
   const updatedOptions = {...options, credentials: "include" as RequestCredentials};
 
-  return fetch(BASE_URL + "orchestra/api/" + endpoint, updatedOptions).then(checkResponse);
+  return fetch(BASE_URL + "/orchestra/api" + endpoint, updatedOptions).then(checkResponse);
 };
 
 const checkResponse = (res: Response) => {
