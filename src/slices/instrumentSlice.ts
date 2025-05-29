@@ -1,6 +1,6 @@
 import {Exchange, IError, IInstrument} from "../utils/types.ts";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {request} from "../services/request.ts";
+import {addSymbol, getAllInstruments} from "../services/instrumentService.ts";
 
 interface IAddRequest {
   symbol: string;
@@ -10,29 +10,20 @@ interface IAddRequest {
 export const fetchGetAll = createAsyncThunk<IInstrument[]>(
     "/instrument/fetchGetAll",
     async (_, {rejectWithValue}) => {
-      console.log('пошло')
-      try {
-        return await request("/instrument");
-      } catch (error) {
-        return rejectWithValue((error as IError).message);
-      }
+      return await getAllInstruments()
+          .then(res => res)
+          .catch(err => rejectWithValue((err as IError).message))
     }
-)
+);
 
 export const fetchAddSymbol = createAsyncThunk<null, IAddRequest>(
     '/instrument/fetchAddSymbol',
     async (data, {rejectWithValue}) => {
-      try {
-        return await request("/instrument", {
-          method: "POST", headers: {
-            "Content-Type": "application/json",
-          }, body: JSON.stringify({symbol: data.symbol, exchange: data.exchange}),
-        });
-      } catch (error) {
-        return rejectWithValue((error as IError).message);
-      }
+      return await addSymbol(data)
+          .then(res => res)
+          .catch(err => rejectWithValue((err as IError).message))
     }
-)
+);
 
 interface IInstrumentSlice {
   items: IInstrument[];

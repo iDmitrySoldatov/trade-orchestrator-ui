@@ -1,11 +1,15 @@
 import {combineSlices, configureStore} from "@reduxjs/toolkit";
 import {userSlice} from "../slices/userSlice.ts";
 import {instrumentSlice} from "../slices/instrumentSlice.ts";
+import {enumSlice} from "../slices/enumSlice.ts";
+import {backtestsSlice} from "../slices/backtestsSlice.ts";
 
 
 const rootReducer = combineSlices(
     userSlice,
-    instrumentSlice
+    instrumentSlice,
+    enumSlice,
+    backtestsSlice
 );
 
 export const store = configureStore({

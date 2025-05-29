@@ -1,0 +1,10 @@
+.container input {
+    font-size: 0.8em;
+    border-bottom: 2px solid black;
+    padding: 0.3rem;
+    width: 100%;
+}
+
+.container input:focus {
+    border-bottom: 3px solid #0000ff;
+}

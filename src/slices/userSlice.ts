@@ -1,6 +1,6 @@
 import {IError, IUser} from "../utils/types.ts";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {request} from "../services/request.ts";
+import {check, login, logout} from "../services/userService.ts";
 
 interface ILoginRequest {
   phone: string;
@@ -10,39 +10,28 @@ interface ILoginRequest {
 export const fetchLogin = createAsyncThunk<IUser, ILoginRequest>(
     "user/fetchLogin",
     async (data, {rejectWithValue}) => {
-      try {
-        return await request("/user/login", {
-          method: "POST", headers: {
-            "Content-Type": "application/json",
-          }, body: JSON.stringify({phone: data.phone, token: data.token})
-        });
-      } catch (error) {
-        return rejectWithValue((error as IError).message);
-      }
+      return await login(data)
+          .then(res => res)
+          .catch(err => rejectWithValue((err as IError).message));
     }
 );
 
 export const fetchLogout = createAsyncThunk<IUser>(
     "user/fetchLogout",
     async (_, {rejectWithValue}) => {
-        try {
-            return await request("/user/logout");
-        } catch (error) {
-            return rejectWithValue((error as IError).message);
-        }
+        return await logout()
+            .then(res => res)
+            .catch(err => rejectWithValue(err));
     }
 );
 
 export const fetchCheck = createAsyncThunk<IUser>(
     'user/fetchCheck',
-    async (_, {rejectWithValue}) => {
-      try {
-        return await request("/user/check", {credentials: "include"});
-      } catch (error) {
-        return rejectWithValue((error as IError).message);
-      }
+    async () => {
+      return await check()
+          .then(res => res)
     }
-)
+);
 
 interface IUserSlice {
   user: IUser;

@@ -1,4 +1,4 @@
-import styles from './intrument-form.module.css';
+import styles from './instrument-form.module.css';
 import {useState} from "react";
 import {Exchange} from "../../utils/types.ts";
 import InactiveButton from "../buttons/inactive-button/InactiveButton.tsx";
