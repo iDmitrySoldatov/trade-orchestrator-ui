@@ -7,11 +7,11 @@ import InstrumentCheckboxGroup from "../inputs/instrument-checkbox-group/Instrum
 import CheckboxGroup from "../inputs/checkbox-group/CheckboxGroup.tsx";
 import InputNumber from "../inputs/input-number/InputNumber.tsx";
 import {IBackTestsFilter, StrategyNames} from "../../utils/types.ts";
-import {backtestsSlice} from "../../slices/backtestsSlice.ts";
+import {backTestsSlice} from "../../slices/backTestsSlice.ts";
 
 const FilterWall = () => {
   const dispatch = useAppDispatch();
-  const {filter} = useAppSelector(state => state.backtests);
+  const {filter} = useAppSelector(state => state.backTests);
 
   const [localFilter, setLocalFilter] = useState<IBackTestsFilter>(filter);
 
@@ -40,7 +40,7 @@ const FilterWall = () => {
   }, [items]);
 
   useEffect(() => {
-    dispatch(backtestsSlice.actions.setFilter(localFilter));
+    dispatch(backTestsSlice.actions.setFilter(localFilter));
   }, [localFilter]);
 
   const handleChangeStrategyName = (strategyName: string) => {
@@ -107,10 +107,6 @@ const FilterWall = () => {
       });
     }
   };
-
-  //strategyName: StrategyNames   symbols: number[]
-  // timeframes: string[]   user: boolean   minPeriod: number   maxPeriod: number
-  // last: boolean   orderBy: string   page: number
 
   return (
       <div className={styles.container}>

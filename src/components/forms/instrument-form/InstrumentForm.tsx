@@ -1,11 +1,12 @@
 import styles from './instrument-form.module.css';
 import {useState} from "react";
-import {Exchange} from "../../utils/types.ts";
-import InactiveButton from "../buttons/inactive-button/InactiveButton.tsx";
-import ActiveButton from "../buttons/active-button/ActiveButton.tsx";
-import {EXCHANGES} from "../../utils/constants.ts";
-import {useAppDispatch, useAppSelector} from "../../services/hooks.ts";
-import {instrumentSlice} from "../../slices/instrumentSlice.ts";
+import {Exchange} from "../../../utils/types.ts";
+import InactiveButton from "../../buttons/inactive-button/InactiveButton.tsx";
+import ActiveButton from "../../buttons/active-button/ActiveButton.tsx";
+import {EXCHANGES} from "../../../utils/constants.ts";
+import {useAppDispatch, useAppSelector} from "../../../services/hooks.ts";
+import {instrumentSlice} from "../../../slices/instrumentSlice.ts";
+import Dropdown from "../../inputs/dropdown/Dropdown.tsx";
 
 interface ComponentProps {
   onSubmit: (exchange:Exchange, symbol:string) => void;
@@ -34,6 +35,10 @@ const InstrumentForm = ({onSubmit, onClose}:ComponentProps) => {
     onClose();
   }
 
+  const handleChangeExchange = (exchangeName: string) => {
+    setExchange(exchangeName as Exchange);
+  }
+
   return (
       <div className={styles.container}>
         <h1>Добавить инструмент</h1>
@@ -41,14 +46,11 @@ const InstrumentForm = ({onSubmit, onClose}:ComponentProps) => {
         <form onSubmit={handleSubmit}>
           <div className={styles.flexbox}>
             <div>
-              <label htmlFor="">Биржа</label>
-              <select value={exchange} onChange={(e) => setExchange(e.target.value as Exchange)}>
-                {EXCHANGES.map((current, index) => <option
-                    value={current} key={index} selected={exchange === current}>{current}</option>)}
-              </select>
+              <label>Биржа</label>
+              <Dropdown options={EXCHANGES.map(current => current)} selected={exchange} onChange={handleChangeExchange} />
             </div>
             <div>
-              <label htmlFor="">Тикер</label>
+              <label>Тикер</label>
               <input
                   id='symbol-input'
                   type='text'

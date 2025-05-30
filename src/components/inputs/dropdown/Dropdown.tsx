@@ -7,12 +7,12 @@ interface IComponentProps {
 }
 
 const Dropdown = ({options, selected, onChange}:IComponentProps) => {
+
   return (
-      <div className={styles.container}>
         <select
             value={selected}
             onChange={(e) => onChange(e.target.value)}
-            className="filter-select"
+            className={styles.container}
         >
           {options.map((option) => (
               <option key={option} value={option}>
@@ -20,7 +20,6 @@ const Dropdown = ({options, selected, onChange}:IComponentProps) => {
               </option>
           ))}
         </select>
-      </div>
   );
 };
 

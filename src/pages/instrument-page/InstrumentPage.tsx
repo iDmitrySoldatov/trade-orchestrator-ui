@@ -6,7 +6,7 @@ import AppHeader from "../../components/app-header/AppHeader.tsx";
 import InstrumentItem from "../../components/instrument-item/InstrumentItem.tsx";
 import {Exchange} from "../../utils/types.ts";
 import Modal from "../../components/modal/Modal.tsx";
-import InstrumentForm from "../../components/instrument-form/InstrumentForm.tsx";
+import InstrumentForm from "../../components/forms/instrument-form/InstrumentForm.tsx";
 import ActiveButton from "../../components/buttons/active-button/ActiveButton.tsx";
 
 const InstrumentPage = () => {

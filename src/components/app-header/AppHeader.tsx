@@ -43,7 +43,7 @@ const AppHeader = () => {
       <header className={styles.header}>
         <nav className={styles.nav}>
           <Link to='/instrument'>Инструмент</Link>
-          <Link to='/backtests'>Бэктесты</Link>
+          <Link to='/backTests'>Бэктесты</Link>
         </nav>
 
         <button
@@ -65,7 +65,7 @@ const AppHeader = () => {
                 Инструмент
               </Link>
               <Link
-                  to='/backtests'
+                  to='/backTests'
                   className={styles.mobile_link}
                   onClick={() => setIsMenuOpen(false)}
               >

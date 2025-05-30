@@ -31,17 +31,15 @@ const InputNumber = ({value, onChange, min=1, max=240}:IComponentProps) => {
   };
 
   return (
-      <div className={styles.container}>
-        <input
-            type="number"
-            value={inputValue}
-            onChange={e => setInputValue(e.target.value)}
-            onBlur={handleBlur}
-            min={min}
-            max={max}
-            className={styles.input}
-        />
-      </div>
+      <input
+          type="number"
+          value={inputValue}
+          onChange={e => setInputValue(e.target.value)}
+          onBlur={handleBlur}
+          min={min}
+          max={max}
+          className={styles.input}
+      />
   );
 };
 

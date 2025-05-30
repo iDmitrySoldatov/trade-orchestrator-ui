@@ -1,3 +1,13 @@
-.container select {
-    border: 2px solid black;
+.container {
+    background-color: white;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    border: 1px solid lightgray;
+    border-radius: 0.5rem;
 }
+
+.container:focus {
+    outline: none;
+}
+
+

@@ -11,8 +11,8 @@ export const fetchGetTimeframes = createAsyncThunk<string[]>(
     }
 );
 
-export const fetchGetBacktestparams = createAsyncThunk<string[]>(
-    "/enum/fetchGetBacktestparams",
+export const fetchGetBackTestParams = createAsyncThunk<string[]>(
+    "/enum/fetchGetBackTestParams",
     async (_, {rejectWithValue}) => {
       return await getEnumValues('backtestparams')
           .then(res => res)
@@ -22,12 +22,12 @@ export const fetchGetBacktestparams = createAsyncThunk<string[]>(
 
 interface IEnumSlice {
   timeframes: string[],
-  backtestparams: string[],
+  backTestParams: string[],
 }
 
 const initialState: IEnumSlice = {
   timeframes: [],
-  backtestparams: [],
+  backTestParams: [],
 }
 
 export const enumSlice = createSlice({
@@ -42,11 +42,11 @@ export const enumSlice = createSlice({
         .addCase(fetchGetTimeframes.fulfilled, (state, action:PayloadAction<string[]>) => {
           state.timeframes = action.payload;
         })
-        .addCase(fetchGetBacktestparams.pending, (state) => {
-          state.backtestparams = [];
+        .addCase(fetchGetBackTestParams.pending, (state) => {
+          state.backTestParams = [];
         })
-        .addCase(fetchGetBacktestparams.fulfilled, (state, action:PayloadAction<string[]>) => {
-          state.backtestparams = action.payload;
+        .addCase(fetchGetBackTestParams.fulfilled, (state, action:PayloadAction<string[]>) => {
+          state.backTestParams = action.payload;
         })
   }
 })

@@ -14,11 +14,6 @@ export type Exchange = typeof EXCHANGES[number];
 
 export type StrategyNames = typeof STRATEGY_NAMES[number];
 
-// export enum Exchange {
-//   SPBX = 'SPBX',
-//   MOEX = 'MOEX',
-// }
-
 export interface IInstrument {
   id:number;
   symbol: string;

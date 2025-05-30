@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://samurai-trading.online';
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 export const EXCHANGES = ['SPBX', 'MOEX'] as const;
 
