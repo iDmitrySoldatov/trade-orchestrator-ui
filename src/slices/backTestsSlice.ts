@@ -6,6 +6,7 @@ import {
 } from '../utils/types.ts';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getReports } from '../services/backTestsService.ts';
+import { STATS_FIELDS } from '../utils/constants.ts';
 
 export const fetchReports = createAsyncThunk<
   IBackTestsResponse,
@@ -33,7 +34,7 @@ const initialState: IBackTestsSlice = {
     minPeriod: 1,
     maxPeriod: 240,
     last: false,
-    orderBy: '',
+    orderBy: STATS_FIELDS[0],
     page: 0,
   },
   reports: {

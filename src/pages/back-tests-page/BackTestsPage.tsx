@@ -27,17 +27,13 @@ const BackTestsPage = () => {
     (state) => state.backTests
   );
 
-  const [orderBy, setOrderBy] = useState<string>('');
+  const [orderBy, setOrderBy] = useState<string>(STATS_FIELDS[0]);
 
   const [currentPage, setCurrentPage] = useState<number>(0);
 
   useEffect(() => {
     dispatch(fetchGetTimeframes());
     dispatch(fetchGetBackTestParams());
-
-    if (STATS_FIELDS) {
-      setOrderBy(STATS_FIELDS[0]);
-    }
   }, []);
 
   useEffect(() => {
