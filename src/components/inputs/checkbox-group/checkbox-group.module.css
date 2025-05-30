@@ -1,0 +1,18 @@
+.container {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    user-select: none;
+}
+
+.container label {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.container input {
+    height: 1rem;
+    width: 1rem;
+    cursor: pointer;
+}

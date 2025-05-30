@@ -1,0 +1,27 @@
+.container {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.arrow {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.arrow:hover:not(.disabled) {
+    color: #007bff;
+}
+
+.arrow.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.pageInfo {
+    font-weight: bold;
+    text-wrap: nowrap;
+}
