@@ -15,8 +15,6 @@ jobs:
           node-version: '22'
       - name: Install dependencies
         run: npm install
-      - name: Linter fix
-        run: npm run fix
       - name: Linter check
         run: npm run lint
       - name: build
