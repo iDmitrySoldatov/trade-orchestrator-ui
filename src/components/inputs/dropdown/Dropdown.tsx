@@ -6,20 +6,19 @@ interface IComponentProps {
   onChange: (value: string) => void;
 }
 
-const Dropdown = ({options, selected, onChange}:IComponentProps) => {
-
+const Dropdown = ({ options, selected, onChange }: IComponentProps) => {
   return (
-        <select
-            value={selected}
-            onChange={(e) => onChange(e.target.value)}
-            className={styles.container}
-        >
-          {options.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-          ))}
-        </select>
+    <select
+      value={selected}
+      onChange={(e) => onChange(e.target.value)}
+      className={styles.container}
+    >
+      {options.map((option) => (
+        <option key={option} value={option}>
+          {option}
+        </option>
+      ))}
+    </select>
   );
 };
 

@@ -1,5 +1,5 @@
 import styles from './input-float.module.css';
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 interface IComponentProps {
   value: string;
@@ -8,7 +8,12 @@ interface IComponentProps {
   max?: number;
 }
 
-const InputFloat = ({ value, onChange, min = 0, max = 100 }: IComponentProps) => {
+const InputFloat = ({
+  value,
+  onChange,
+  min = 0,
+  max = 100,
+}: IComponentProps) => {
   const [inputValue, setInputValue] = useState(value);
 
   useEffect(() => {
@@ -41,24 +46,24 @@ const InputFloat = ({ value, onChange, min = 0, max = 100 }: IComponentProps) =>
     const newValue = e.target.value;
 
     if (
-        newValue === '' ||
-        /^-?\d*\.?\d*$/.test(newValue) &&
+      newValue === '' ||
+      (/^-?\d*\.?\d*$/.test(newValue) &&
         (min >= 0 ? !newValue.startsWith('-') : true) &&
-        (newValue.match(/\./g) || []).length <= 1
+        (newValue.match(/\./g) || []).length <= 1)
     ) {
       setInputValue(newValue);
     }
   };
 
   return (
-      <input
-          type="text"
-          value={inputValue}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className={styles.input}
-          inputMode="decimal"
-      />
+    <input
+      type="text"
+      value={inputValue}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      className={styles.input}
+      inputMode="decimal"
+    />
   );
 };
 

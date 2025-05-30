@@ -1,28 +1,33 @@
-import {IBackTestsFilter, IBackTestsResponse, IError, IReport} from "../utils/types.ts";
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {getReports} from "../services/backTestsService.ts";
+import {
+  IBackTestsFilter,
+  IBackTestsResponse,
+  IError,
+  IReport,
+} from '../utils/types.ts';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getReports } from '../services/backTestsService.ts';
 
-export const fetchReports = createAsyncThunk<IBackTestsResponse, IBackTestsFilter>(
-    "/backTests/fetchReports",
-    async (data, {rejectWithValue}) => {
-      return await getReports(data)
-          .then(res => res)
-          .catch(err => rejectWithValue((err as IError).message))
-    }
-);
+export const fetchReports = createAsyncThunk<
+  IBackTestsResponse,
+  IBackTestsFilter
+>('/backTests/fetchReports', async (data, { rejectWithValue }) => {
+  return await getReports(data)
+    .then((res) => res)
+    .catch((err) => rejectWithValue((err as IError).message));
+});
 
 interface IBackTestsSlice {
-  filter: IBackTestsFilter,
-  reports: IBackTestsResponse,
-  currentReport: IReport | null,
-  showDetails: boolean,
-  showStart: boolean,
+  filter: IBackTestsFilter;
+  reports: IBackTestsResponse;
+  currentReport: IReport | null;
+  showDetails: boolean;
+  showStart: boolean;
 }
 
 const initialState: IBackTestsSlice = {
   filter: {
     strategyName: 'LAST_CANDLE',
-    symbols:[],
+    symbols: [],
     timeframes: [],
     user: true,
     minPeriod: 1,
@@ -38,33 +43,36 @@ const initialState: IBackTestsSlice = {
   },
   currentReport: null,
   showDetails: false,
-  showStart: false
-}
+  showStart: false,
+};
 
 export const backTestsSlice = createSlice({
   name: 'backTests',
   initialState,
   reducers: {
-    setFilter (state, action:PayloadAction<IBackTestsFilter>) {
+    setFilter(state, action: PayloadAction<IBackTestsFilter>) {
       state.filter = action.payload;
     },
-    setCurrentReport (state, action:PayloadAction<IReport>) {
+    setCurrentReport(state, action: PayloadAction<IReport>) {
       state.currentReport = action.payload;
     },
-    setShowDetails (state, action:PayloadAction<boolean>) {
+    setShowDetails(state, action: PayloadAction<boolean>) {
       state.showDetails = action.payload;
     },
-    setShowStart (state, action:PayloadAction<boolean>) {
+    setShowStart(state, action: PayloadAction<boolean>) {
       state.showStart = action.payload;
     },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
-        .addCase(fetchReports.pending, (state) => {
-          state.reports = initialState.reports;
-        })
-        .addCase(fetchReports.fulfilled, (state, action:PayloadAction<IBackTestsResponse>) => {
+      .addCase(fetchReports.pending, (state) => {
+        state.reports = initialState.reports;
+      })
+      .addCase(
+        fetchReports.fulfilled,
+        (state, action: PayloadAction<IBackTestsResponse>) => {
           state.reports = action.payload;
-        })
-  }
-})
+        }
+      );
+  },
+});

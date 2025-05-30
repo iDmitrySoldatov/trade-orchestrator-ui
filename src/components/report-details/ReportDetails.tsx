@@ -1,5 +1,5 @@
 import styles from './report-details.module.css';
-import {useAppSelector} from "../../services/hooks.ts";
+import { useAppSelector } from '../../services/hooks.ts';
 
 interface IParameter {
   name: string;
@@ -7,8 +7,7 @@ interface IParameter {
 }
 
 const ReportDetails = () => {
-
-  const {currentReport} = useAppSelector(state => state.backTests);
+  const { currentReport } = useAppSelector((state) => state.backTests);
 
   const getPercent = (profit: number) => {
     if (profit < 1) {
@@ -18,16 +17,19 @@ const ReportDetails = () => {
     } else {
       return `+${((profit - 1) * 100).toFixed(2)}%`;
     }
-  }
+  };
 
   const parseParams = (): IParameter[] | null => {
     if (!currentReport?.params) return null;
 
     try {
-      const params = JSON.parse(currentReport.params) as Record<string, unknown>;
+      const params = JSON.parse(currentReport.params) as Record<
+        string,
+        unknown
+      >;
       return Object.entries(params).map(([key, value]) => ({
         name: key.replace(/_/g, ' '),
-        value: formatParamValue(value)
+        value: formatParamValue(value),
       }));
     } catch (e) {
       console.error('Error parsing parameters:', e);
@@ -48,92 +50,101 @@ const ReportDetails = () => {
   if (!currentReport) return null;
 
   return (
-      <div className={styles.container}>
-        <div className={styles.chapter_container}>
-          <h2>Общая информация</h2>
-          <div className={styles.record_container}>
-            <div className={styles.record}>
-              <p>Инструмент</p>
-              <p>{currentReport.symbol.symbol} - {currentReport.symbol.exchange}</p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Стратегия</p>
-              <p>{currentReport.strategyName}</p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Временной отрезок</p>
-              <p>{currentReport.timeframe}</p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Период</p>
-              <p>{currentReport.periodInMonths} месяцев</p>
-            </div>
+    <div className={styles.container}>
+      <div className={styles.chapter_container}>
+        <h2>Общая информация</h2>
+        <div className={styles.record_container}>
+          <div className={styles.record}>
+            <p>Инструмент</p>
+            <p>
+              {currentReport.symbol.symbol} - {currentReport.symbol.exchange}
+            </p>
           </div>
-        </div>
 
-        <div className={styles.chapter_container}>
-          <h2>Статистика торговли</h2>
-          <div className={styles.record_container}>
-            <div className={styles.record}>
-              <p>Фактор прибыли</p>
-              <p className={currentReport.backTestStats.profitFactor >= 1 ? styles.green : styles.red}>
-                {getPercent(currentReport.backTestStats.profitFactor)}
-              </p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Средняя прибыль по сделке</p>
-              <p>{currentReport.backTestStats.averageTradeProfit}</p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Всего сделок</p>
-              <p>{currentReport.backTestStats.totalTrades}</p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Успешных сделок</p>
-              <p>{currentReport.backTestStats.winRate}%</p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Общий баланс</p>
-              <p>{currentReport.backTestStats.totalBalance}</p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Коэффициент Шарпа</p>
-              <p>{currentReport.backTestStats.sharpeRatio}</p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Максимальная просадка</p>
-              <p>{currentReport.backTestStats.maxDrawdown}</p>
-            </div>
-
-            <div className={styles.record}>
-              <p>Самая убыточная сделка</p>
-              <p className={styles.red}>{currentReport.backTestStats.maxLossTrade}</p>
-            </div>
-
+          <div className={styles.record}>
+            <p>Стратегия</p>
+            <p>{currentReport.strategyName}</p>
           </div>
-        </div>
 
-        <div className={styles.chapter_container}>
-          <h2>Параметры</h2>
-          <div className={styles.record_container}>
-            {parseParams()?.map((param, index) => (
-                <div key={index} className={styles.record}>
-                  <p>{param.name}</p>
-                  <p>{param.value}</p>
-                </div>
-            ))}
+          <div className={styles.record}>
+            <p>Временной отрезок</p>
+            <p>{currentReport.timeframe}</p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Период</p>
+            <p>{currentReport.periodInMonths} месяцев</p>
           </div>
         </div>
       </div>
+
+      <div className={styles.chapter_container}>
+        <h2>Статистика торговли</h2>
+        <div className={styles.record_container}>
+          <div className={styles.record}>
+            <p>Фактор прибыли</p>
+            <p
+              className={
+                currentReport.backTestStats.profitFactor >= 1
+                  ? styles.green
+                  : styles.red
+              }
+            >
+              {getPercent(currentReport.backTestStats.profitFactor)}
+            </p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Средняя прибыль по сделке</p>
+            <p>{currentReport.backTestStats.averageTradeProfit}</p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Всего сделок</p>
+            <p>{currentReport.backTestStats.totalTrades}</p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Успешных сделок</p>
+            <p>{currentReport.backTestStats.winRate}%</p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Общий баланс</p>
+            <p>{currentReport.backTestStats.totalBalance}</p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Коэффициент Шарпа</p>
+            <p>{currentReport.backTestStats.sharpeRatio}</p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Максимальная просадка</p>
+            <p>{currentReport.backTestStats.maxDrawdown}</p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Самая убыточная сделка</p>
+            <p className={styles.red}>
+              {currentReport.backTestStats.maxLossTrade}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.chapter_container}>
+        <h2>Параметры</h2>
+        <div className={styles.record_container}>
+          {parseParams()?.map((param, index) => (
+            <div key={index} className={styles.record}>
+              <p>{param.name}</p>
+              <p>{param.value}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 };
 

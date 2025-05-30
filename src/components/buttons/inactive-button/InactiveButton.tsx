@@ -5,11 +5,11 @@ interface ComponentProps {
   children: React.ReactNode;
 }
 
-const InactiveButton = ({onClick, children}:ComponentProps) => {
+const InactiveButton = ({ onClick, children }: ComponentProps) => {
   return (
-      <button onClick={onClick} className={styles.button}>
-        {children}
-      </button>
+    <button onClick={onClick} className={styles.button}>
+      {children}
+    </button>
   );
 };
 

@@ -20,27 +20,27 @@ const PageSelector = ({ current, total, setCurrent }: ComponentProps) => {
   };
 
   return (
-      <div className={styles.container}>
-        <button
-            className={`${styles.arrow} ${current === 0 ? styles.disabled : ''}`}
-            onClick={handlePrev}
-            disabled={current === 0}
-        >
-          &larr;
-        </button>
+    <div className={styles.container}>
+      <button
+        className={`${styles.arrow} ${current === 0 ? styles.disabled : ''}`}
+        onClick={handlePrev}
+        disabled={current === 0}
+      >
+        &larr;
+      </button>
 
-        <span className={styles.pageInfo}>
-          {current + 1} / {total}
-        </span>
+      <span className={styles.pageInfo}>
+        {current + 1} / {total}
+      </span>
 
-        <button
-            className={`${styles.arrow} ${current + 1 === total ? styles.disabled : ''}`}
-            onClick={handleNext}
-            disabled={current + 1 === total}
-        >
-          &rarr;
-        </button>
-      </div>
+      <button
+        className={`${styles.arrow} ${current + 1 === total ? styles.disabled : ''}`}
+        onClick={handleNext}
+        disabled={current + 1 === total}
+      >
+        &rarr;
+      </button>
+    </div>
   );
 };
 

@@ -1,9 +1,14 @@
-import {BASE_URL} from "../utils/constants.ts";
+import { BASE_URL } from '../utils/constants.ts';
 
 export const request = (endpoint: string, options?: RequestInit) => {
-  const updatedOptions = {...options, credentials: "include" as RequestCredentials};
+  const updatedOptions = {
+    ...options,
+    credentials: 'include' as RequestCredentials,
+  };
 
-  return fetch(BASE_URL + "/orchestra/api" + endpoint, updatedOptions).then(checkResponse);
+  return fetch(BASE_URL + '/orchestra/api' + endpoint, updatedOptions).then(
+    checkResponse
+  );
 };
 
 const checkResponse = async (res: Response) => {

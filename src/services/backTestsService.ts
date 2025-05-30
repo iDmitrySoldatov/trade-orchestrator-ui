@@ -1,9 +1,7 @@
-import {IBackTestsFilter} from "../utils/types.ts";
-import {request} from "./request.ts";
+import { IBackTestsFilter } from '../utils/types.ts';
+import { request } from './request.ts';
 
 const LOCAL_BASE_URL = '/back-test';
-
-
 
 interface IBackTest {
   strategyName: string;
@@ -20,9 +18,8 @@ export const getReports = async (filters: IBackTestsFilter) => {
     if (value === undefined || value === null) return;
 
     if (Array.isArray(value)) {
-      value.forEach(item => params.append(key, String(item)));
-    }
-    else {
+      value.forEach((item) => params.append(key, String(item)));
+    } else {
       params.append(key, String(value));
     }
   });
@@ -31,6 +28,9 @@ export const getReports = async (filters: IBackTestsFilter) => {
 };
 
 export const startBackTest = async (data: IBackTest) => {
-  return await request(LOCAL_BASE_URL, {method: 'POST', body: JSON.stringify(data),
-    headers: {'Content-Type': 'application/json'}});
-}
+  return await request(LOCAL_BASE_URL, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    headers: { 'Content-Type': 'application/json' },
+  });
+};

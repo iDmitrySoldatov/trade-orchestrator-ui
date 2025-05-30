@@ -1,5 +1,5 @@
 import styles from './input-number.module.css';
-import {useEffect, useState} from "react";
+import { useEffect, useState } from 'react';
 
 interface IComponentProps {
   value: number;
@@ -8,12 +8,17 @@ interface IComponentProps {
   max?: number;
 }
 
-const InputNumber = ({value, onChange, min=1, max=240}:IComponentProps) => {
+const InputNumber = ({
+  value,
+  onChange,
+  min = 1,
+  max = 240,
+}: IComponentProps) => {
   const [inputValue, setInputValue] = useState(value.toString());
 
   useEffect(() => {
     setInputValue(value.toString());
-  }, [value])
+  }, [value]);
 
   const handleBlur = () => {
     let numValue = parseInt(inputValue, 10);
@@ -31,15 +36,15 @@ const InputNumber = ({value, onChange, min=1, max=240}:IComponentProps) => {
   };
 
   return (
-      <input
-          type="number"
-          value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
-          onBlur={handleBlur}
-          min={min}
-          max={max}
-          className={styles.input}
-      />
+    <input
+      type="number"
+      value={inputValue}
+      onChange={(e) => setInputValue(e.target.value)}
+      onBlur={handleBlur}
+      min={min}
+      max={max}
+      className={styles.input}
+    />
   );
 };
 
