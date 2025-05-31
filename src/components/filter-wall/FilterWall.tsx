@@ -7,7 +7,8 @@ import InstrumentCheckboxGroup from '../inputs/instrument-checkbox-group/Instrum
 import CheckboxGroup from '../inputs/checkbox-group/CheckboxGroup.tsx';
 import InputNumber from '../inputs/input-number/InputNumber.tsx';
 import { IBackTestsFilter, StrategyNames } from '../../utils/types.ts';
-import { backTestsSlice } from '../../slices/backTestsSlice.ts';
+import { backTestsSlice, fetchReports } from '../../slices/backTestsSlice.ts';
+import ActiveButton from '../buttons/active-button/ActiveButton.tsx';
 
 const FilterWall = () => {
   const dispatch = useAppDispatch();
@@ -123,6 +124,10 @@ const FilterWall = () => {
     }
   };
 
+  const handleUpdateClick = () => {
+    dispatch(fetchReports(filter));
+  };
+
   return (
     <div className={styles.container}>
       <div>
@@ -181,6 +186,10 @@ const FilterWall = () => {
           />
           Только последний
         </label>
+      </div>
+
+      <div className={styles.button_container}>
+        <ActiveButton onClick={handleUpdateClick}>Обновить</ActiveButton>
       </div>
     </div>
   );
