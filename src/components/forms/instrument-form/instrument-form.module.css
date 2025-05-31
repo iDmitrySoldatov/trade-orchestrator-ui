@@ -27,15 +27,10 @@
     font-size: 0.8em;
     border-bottom: 2px solid black;
     padding: 0.3rem;
-    width: 100%;
 }
 
 .flexbox input:focus {
-    border-bottom: 3px solid #0000ff;
-}
-
-.flexbox select {
-    border: 2px solid black;
+    border-bottom: 2px solid #0000ff;
 }
 
 .error {

@@ -1,7 +1,7 @@
 import styles from './modal.module.css';
-import {useEffect, useState} from "react";
-import ReactDOM from "react-dom";
-import ModalOverlay from "../modal-overlay/ModalOverlay.tsx";
+import { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import ModalOverlay from '../modal-overlay/ModalOverlay.tsx';
 import close from '../../images/close.png';
 
 interface ComponentProps {
@@ -10,7 +10,6 @@ interface ComponentProps {
 }
 
 const Modal = ({ children, onClose }: ComponentProps) => {
-
   const [modalRoot, setModalRoot] = useState<HTMLElement>();
 
   const [isMouseDown, setMouseDown] = useState(false);
@@ -62,15 +61,15 @@ const Modal = ({ children, onClose }: ComponentProps) => {
   }
 
   return ReactDOM.createPortal(
-      <ModalOverlay onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
-        <div className={styles.container}>
-          <div className={styles.close} onClick={onClose}>
-            <img src={close} alt='Close' draggable={false} />
-          </div>
-          {children}
+    <ModalOverlay onMouseDown={handleMouseDown} onMouseUp={handleMouseUp}>
+      <div className={styles.container}>
+        <div className={styles.close} onClick={onClose}>
+          <img src={close} alt="Close" draggable={false} />
         </div>
-      </ModalOverlay>,
-      modalRoot,
+        {children}
+      </div>
+    </ModalOverlay>,
+    modalRoot
   );
 };
 

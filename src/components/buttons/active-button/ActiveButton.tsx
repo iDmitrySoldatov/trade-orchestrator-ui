@@ -6,11 +6,11 @@ interface ComponentProps {
   type?: 'submit' | 'reset';
 }
 
-const ActiveButton = ({onClick, children, type}:ComponentProps) => {
+const ActiveButton = ({ onClick, children, type }: ComponentProps) => {
   return (
-      <button type={type} onClick={onClick} className={styles.button}>
-        {children}
-      </button>
+    <button type={type} onClick={onClick} className={styles.button}>
+      {children}
+    </button>
   );
 };
 

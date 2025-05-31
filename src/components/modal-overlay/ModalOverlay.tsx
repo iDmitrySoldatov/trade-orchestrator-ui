@@ -6,16 +6,16 @@ interface ComponentProps {
   children: React.ReactNode;
 }
 
-const ModalOverlay = ({children, onMouseDown, onMouseUp}:ComponentProps) => {
+const ModalOverlay = ({ children, onMouseDown, onMouseUp }: ComponentProps) => {
   return (
-      <div
-          className={styles.container}
-          onMouseDown={onMouseDown}
-          onMouseUp={onMouseUp}
-          id='modal-overlay'
-      >
-        {children}
-      </div>
+    <div
+      className={styles.container}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+      id="modal-overlay"
+    >
+      {children}
+    </div>
   );
 };
 
