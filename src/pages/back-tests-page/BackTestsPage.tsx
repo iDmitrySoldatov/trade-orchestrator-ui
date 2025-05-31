@@ -27,9 +27,9 @@ const BackTestsPage = () => {
     (state) => state.backTests
   );
 
-  const [orderBy, setOrderBy] = useState<string>(STATS_FIELDS[0]);
+  const [orderBy, setOrderBy] = useState<string>(filter.orderBy);
 
-  const [currentPage, setCurrentPage] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(filter.page);
 
   useEffect(() => {
     dispatch(fetchGetTimeframes());
