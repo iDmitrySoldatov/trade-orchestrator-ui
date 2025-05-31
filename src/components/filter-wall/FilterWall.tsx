@@ -46,7 +46,13 @@ const FilterWall = () => {
   }, [items]);
 
   useEffect(() => {
-    dispatch(backTestsSlice.actions.setFilter(localFilter));
+    dispatch(
+      backTestsSlice.actions.setFilter({
+        ...localFilter,
+        orderBy: filter.orderBy,
+        page: filter.page,
+      })
+    );
   }, [localFilter]);
 
   const handleChangeStrategyName = (strategyName: string) => {
