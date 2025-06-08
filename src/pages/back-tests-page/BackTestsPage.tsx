@@ -3,7 +3,7 @@ import AppHeader from '../../components/app-header/AppHeader.tsx';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
 import {
-  fetchGetBackTestParams,
+  fetchGetBackTestParams, fetchGetStrategies,
   fetchGetTimeframes,
 } from '../../slices/enumSlice.ts';
 import ActiveButton from '../../components/buttons/active-button/ActiveButton.tsx';
@@ -34,6 +34,7 @@ const BackTestsPage = () => {
   useEffect(() => {
     dispatch(fetchGetTimeframes());
     dispatch(fetchGetBackTestParams());
+    dispatch(fetchGetStrategies());
   }, []);
 
   useEffect(() => {
