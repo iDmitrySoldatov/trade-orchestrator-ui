@@ -21,50 +21,50 @@ const PageSelector = ({ current, total, setCurrent }: ComponentProps) => {
 
   const handleFirst = () => {
     setCurrent(0);
-  }
+  };
 
   const handleLast = () => {
     setCurrent(total - 1);
-  }
+  };
 
   return (
-      <div className={styles.container}>
-        <button
-            className={`${styles.arrow} ${current === 0 ? styles.disabled : ''}`}
-            onClick={handleFirst}
-            disabled={current === 0}
-        >
-          &laquo;
-        </button>
+    <div className={styles.container}>
+      <button
+        className={`${styles.arrow} ${current === 0 ? styles.disabled : ''}`}
+        onClick={handleFirst}
+        disabled={current === 0}
+      >
+        &laquo;
+      </button>
 
-        <button
-            className={`${styles.arrow} ${current === 0 ? styles.disabled : ''}`}
-            onClick={handlePrev}
-            disabled={current === 0}
-        >
-          &larr;
-        </button>
+      <button
+        className={`${styles.arrow} ${current === 0 ? styles.disabled : ''}`}
+        onClick={handlePrev}
+        disabled={current === 0}
+      >
+        &larr;
+      </button>
 
-        <span className={styles.pageInfo}>
+      <span className={styles.pageInfo}>
         {current + 1} / {total}
       </span>
 
-        <button
-            className={`${styles.arrow} ${current + 1 === total ? styles.disabled : ''}`}
-            onClick={handleNext}
-            disabled={current + 1 === total}
-        >
-          &rarr;
-        </button>
+      <button
+        className={`${styles.arrow} ${current + 1 === total ? styles.disabled : ''}`}
+        onClick={handleNext}
+        disabled={current + 1 === total}
+      >
+        &rarr;
+      </button>
 
-        <button
-            className={`${styles.arrow} ${current + 1 === total ? styles.disabled : ''}`}
-            onClick={handleLast}
-            disabled={current + 1 === total}
-        >
-          &raquo;
-        </button>
-      </div>
+      <button
+        className={`${styles.arrow} ${current + 1 === total ? styles.disabled : ''}`}
+        onClick={handleLast}
+        disabled={current + 1 === total}
+      >
+        &raquo;
+      </button>
+    </div>
   );
 };
 

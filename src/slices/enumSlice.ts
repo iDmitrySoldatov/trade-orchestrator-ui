@@ -21,12 +21,12 @@ export const fetchGetBackTestParams = createAsyncThunk<string[]>(
 );
 
 export const fetchGetStrategies = createAsyncThunk<string[]>(
-    '/enum/fetchGetStrategies',
-    async (_, { rejectWithValue }) => {
-      return await getEnumValues('strategyname')
-          .then((res) => res)
-          .catch((err) => rejectWithValue((err as IError).message));
-    }
+  '/enum/fetchGetStrategies',
+  async (_, { rejectWithValue }) => {
+    return await getEnumValues('strategyname')
+      .then((res) => res)
+      .catch((err) => rejectWithValue((err as IError).message));
+  }
 );
 
 interface IEnumSlice {
@@ -50,7 +50,8 @@ export const enumSlice = createSlice({
       .addCase(fetchGetTimeframes.pending, (state) => {
         state.timeframes = [];
       })
-      .addCase(fetchGetTimeframes.fulfilled,
+      .addCase(
+        fetchGetTimeframes.fulfilled,
         (state, action: PayloadAction<string[]>) => {
           state.timeframes = action.payload;
         }
@@ -58,7 +59,8 @@ export const enumSlice = createSlice({
       .addCase(fetchGetBackTestParams.pending, (state) => {
         state.backTestParams = [];
       })
-      .addCase(fetchGetBackTestParams.fulfilled,
+      .addCase(
+        fetchGetBackTestParams.fulfilled,
         (state, action: PayloadAction<string[]>) => {
           state.backTestParams = action.payload;
         }
@@ -66,10 +68,11 @@ export const enumSlice = createSlice({
       .addCase(fetchGetStrategies.pending, (state) => {
         state.strategies = [];
       })
-      .addCase(fetchGetStrategies.fulfilled,
-          (state, action: PayloadAction<string[]>) => {
-            state.strategies = action.payload;
-          }
+      .addCase(
+        fetchGetStrategies.fulfilled,
+        (state, action: PayloadAction<string[]>) => {
+          state.strategies = action.payload;
+        }
       );
   },
 });
