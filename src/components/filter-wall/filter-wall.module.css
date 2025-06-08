@@ -28,3 +28,8 @@
     width: 1rem;
     cursor: pointer;
 }
+
+.button_container {
+    display: flex;
+    justify-content: center;
+}
