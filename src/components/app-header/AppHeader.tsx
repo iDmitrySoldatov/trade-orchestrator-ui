@@ -42,7 +42,8 @@ const AppHeader = () => {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <Link to="/instrument">Инструмент</Link>
-        <Link to="/backTests">Бэктесты</Link>
+        <Link to="/backtests">Бэктесты</Link>
+        <Link to="/strategy">Стратегии</Link>
       </nav>
 
       <button
@@ -63,12 +64,21 @@ const AppHeader = () => {
           >
             Инструмент
           </Link>
+
           <Link
             to="/backTests"
             className={styles.mobile_link}
             onClick={() => setIsMenuOpen(false)}
           >
             Бэктесты
+          </Link>
+
+          <Link
+            to="/strategy"
+            className={styles.mobile_link}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Стратегии
           </Link>
         </div>
       )}

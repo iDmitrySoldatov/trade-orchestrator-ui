@@ -48,7 +48,9 @@ const InstrumentForm = ({ onSubmit, onClose }: ComponentProps) => {
           <div>
             <label>Биржа</label>
             <Dropdown
-              options={EXCHANGES.map((current) => current)}
+              options={EXCHANGES.map((current) => {
+                return { label: current, value: current };
+              })}
               selected={exchange}
               onChange={handleChangeExchange}
             />

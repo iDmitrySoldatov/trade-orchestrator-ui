@@ -1,0 +1,33 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: white;
+    border-radius: 1rem;
+    width: 15rem;
+    padding: 1rem;
+    padding-top: 1.5rem;
+    position: relative;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.id_container {
+    position: absolute;
+    top: 0.5rem;
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.flexrow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.green {
+    color: limegreen;
+}
+
+.red {
+    color: red;
+}

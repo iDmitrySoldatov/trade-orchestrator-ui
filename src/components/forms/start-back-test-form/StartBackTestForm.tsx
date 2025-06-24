@@ -1,4 +1,4 @@
-import styles from './start-form.module.css';
+import styles from './start-back-test-form.module.css';
 import Dropdown from '../../inputs/dropdown/Dropdown.tsx';
 import { useState } from 'react';
 import InstrumentCheckboxGroup from '../../inputs/instrument-checkbox-group/InstrumentCheckboxGroup.tsx';
@@ -12,7 +12,7 @@ import InactiveButton from '../../buttons/inactive-button/InactiveButton.tsx';
 import { backTestsSlice } from '../../../slices/backTestsSlice.ts';
 import { startBackTest } from '../../../services/backTestsService.ts';
 
-const StartForm = () => {
+const StartBackTestForm = () => {
   const [strategyName, setStrategyName] = useState<string>(STRATEGY_NAMES[0]);
   const [selectedInstrumentIds, setSelectedInstrumentIds] = useState<number[]>(
     []
@@ -33,7 +33,6 @@ const StartForm = () => {
     return initialParams;
   });
 
-  // Обработчик изменения параметра
   const handleParamChange = (paramName: string) => (value: string) => {
     setParams((prev) => ({
       ...prev,
@@ -41,7 +40,6 @@ const StartForm = () => {
     }));
   };
 
-  // Форматирование названия параметра для отображения
   const formatParamName = (name: string) => {
     return name.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
   };
@@ -85,7 +83,9 @@ const StartForm = () => {
         <div className={styles.flexrow}>
           <h3>Стратегия</h3>
           <Dropdown
-            options={STRATEGY_NAMES.map((current) => current)}
+            options={STRATEGY_NAMES.map((current) => {
+              return { label: current, value: current };
+            })}
             selected={strategyName}
             onChange={setStrategyName}
           />
@@ -132,7 +132,7 @@ const StartForm = () => {
         </div>
       )}
 
-      <div className={styles.buttons_contaier}>
+      <div className={styles.buttons_container}>
         <InactiveButton onClick={handleClose}>Отмена</InactiveButton>
 
         <ActiveButton onClick={handleSubmit}>Запустить тест</ActiveButton>
@@ -141,4 +141,4 @@ const StartForm = () => {
   );
 };
 
-export default StartForm;
+export default StartBackTestForm;

@@ -9,13 +9,23 @@ interface IParameter {
 const ReportDetails = () => {
   const { currentReport } = useAppSelector((state) => state.backTests);
 
-  const getPercent = (profit: number) => {
+  const getProfitPercent = (profit: number) => {
     if (profit < 1) {
       return `-${((1 - profit) * 100).toFixed(2)}%`;
     } else if (profit === 1) {
       return '0%';
     } else {
       return `+${((profit - 1) * 100).toFixed(2)}%`;
+    }
+  };
+
+  const getInterestPercent = (profit: number) => {
+    if (profit < 0) {
+      return `${profit.toFixed(2)}%`;
+    } else if (profit === 0) {
+      return '0%';
+    } else {
+      return `+${profit.toFixed(2)}%`;
     }
   };
 
@@ -82,6 +92,21 @@ const ReportDetails = () => {
         <h2>Статистика торговли</h2>
         <div className={styles.record_container}>
           <div className={styles.record}>
+            <p>Ежемесечный доход</p>
+            <p
+              className={
+                currentReport.backTestStats.averageInterestPerMonth >= 0
+                  ? styles.green
+                  : styles.red
+              }
+            >
+              {getInterestPercent(
+                currentReport.backTestStats.averageInterestPerMonth
+              )}
+            </p>
+          </div>
+
+          <div className={styles.record}>
             <p>Фактор прибыли</p>
             <p
               className={
@@ -90,7 +115,7 @@ const ReportDetails = () => {
                   : styles.red
               }
             >
-              {getPercent(currentReport.backTestStats.profitFactor)}
+              {getProfitPercent(currentReport.backTestStats.profitFactor)}
             </p>
           </div>
 
