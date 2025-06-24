@@ -9,9 +9,9 @@ interface ComponentProps {
 const StrategyItem = ({ data, onClick }: ComponentProps) => {
   const getProfit = (profit: number) => {
     if (profit <= 0) {
-      return `${profit.toFixed(2)}`;
+      return `${profit.toFixed(2)}₽`;
     } else {
-      return `+${profit.toFixed(2)}%`;
+      return `+${profit.toFixed(2)}₽`;
     }
   };
 
