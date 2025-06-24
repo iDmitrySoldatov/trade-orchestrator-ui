@@ -65,15 +65,11 @@ export const backTestsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchReports.pending, (state) => {
-        state.reports = initialState.reports;
-      })
-      .addCase(
-        fetchReports.fulfilled,
-        (state, action: PayloadAction<IBackTestsResponse>) => {
-          state.reports = action.payload;
-        }
-      );
+    builder.addCase(
+      fetchReports.fulfilled,
+      (state, action: PayloadAction<IBackTestsResponse>) => {
+        state.reports = action.payload;
+      }
+    );
   },
 });

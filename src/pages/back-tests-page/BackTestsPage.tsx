@@ -17,7 +17,7 @@ import PageSelector from '../../components/page-selector/PageSelector.tsx';
 import Modal from '../../components/modal/Modal.tsx';
 import ReportDetails from '../../components/report-details/ReportDetails.tsx';
 import { IReport } from '../../utils/types.ts';
-import StartForm from '../../components/forms/start-form/StartForm.tsx';
+import StartBackTestForm from '../../components/forms/start-back-test-form/StartBackTestForm.tsx';
 
 const BackTestsPage = () => {
   const dispatch = useAppDispatch();
@@ -84,7 +84,9 @@ const BackTestsPage = () => {
             <div className={styles.sorting_container}>
               <p>сортировка: </p>
               <Dropdown
-                options={STATS_FIELDS.map((current) => current)}
+                options={STATS_FIELDS.map((current) => {
+                  return { label: current, value: current };
+                })}
                 selected={orderBy}
                 onChange={handleSetOrderBy}
               />
@@ -119,7 +121,7 @@ const BackTestsPage = () => {
 
       {showStart && (
         <Modal onClose={handleCloseStart}>
-          <StartForm />
+          <StartBackTestForm />
         </Modal>
       )}
     </>

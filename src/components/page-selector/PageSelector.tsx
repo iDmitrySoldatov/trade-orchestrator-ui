@@ -1,4 +1,5 @@
 import styles from './page-selector.module.css';
+import { useEffect } from 'react';
 
 interface ComponentProps {
   current: number;
@@ -7,6 +8,12 @@ interface ComponentProps {
 }
 
 const PageSelector = ({ current, total, setCurrent }: ComponentProps) => {
+  useEffect(() => {
+    if (current > total) {
+      setCurrent(Math.max(0, total - 1));
+    }
+  }, [total]);
+
   const handlePrev = () => {
     if (current > 0) {
       setCurrent(current - 1);

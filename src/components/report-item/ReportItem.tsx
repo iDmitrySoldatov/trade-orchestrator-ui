@@ -8,12 +8,12 @@ interface ComponentProps {
 
 const ReportItem = ({ data, onClick }: ComponentProps) => {
   const getPercent = (profit: number) => {
-    if (profit < 1) {
-      return `-${((1 - profit) * 100).toFixed(2)}%`;
-    } else if (profit === 1) {
+    if (profit < 0) {
+      return `${profit.toFixed(2)}%`;
+    } else if (profit === 0) {
       return '0%';
     } else {
-      return `+${((profit - 1) * 100).toFixed(2)}%`;
+      return `+${profit.toFixed(2)}%`;
     }
   };
 
@@ -25,10 +25,12 @@ const ReportItem = ({ data, onClick }: ComponentProps) => {
         </h2>
         <p
           className={
-            data.backTestStats.profitFactor >= 1 ? styles.green : styles.red
+            data.backTestStats.averageInterestPerMonth >= 0
+              ? styles.green
+              : styles.red
           }
         >
-          {getPercent(data.backTestStats.profitFactor)}
+          {getPercent(data.backTestStats.averageInterestPerMonth)}
         </p>
       </div>
 

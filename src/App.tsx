@@ -7,6 +7,7 @@ import LoginPage from './pages/login-page/LoginPage.tsx';
 import { useEffect } from 'react';
 import { useAppDispatch } from './services/hooks.ts';
 import { fetchCheck } from './slices/userSlice.ts';
+import StrategyPage from './pages/strategy-page/StrategyPage.tsx';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -23,8 +24,12 @@ function App() {
           element={<ProtectedRouteComponent element={<InstrumentPage />} />}
         />
         <Route
-          path="/backTests"
+          path="/backtests"
           element={<ProtectedRouteComponent element={<BackTestsPage />} />}
+        />
+        <Route
+          path="/strategy"
+          element={<ProtectedRouteComponent element={<StrategyPage />} />}
         />
         <Route path="/login" element={<LoginPage />} />
         <Route

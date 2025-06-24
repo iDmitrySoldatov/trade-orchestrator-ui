@@ -132,7 +132,9 @@ const FilterWall = () => {
       <div>
         <h3>Стратегия</h3>
         <Dropdown
-          options={strategies.map((current) => current)}
+          options={strategies.map((current) => {
+            return { label: current, value: current };
+          })}
           selected={strategyName}
           onChange={handleChangeStrategyName}
         />
