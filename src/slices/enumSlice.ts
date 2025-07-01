@@ -20,14 +20,25 @@ export const fetchGetBackTestParams = createAsyncThunk<string[]>(
   }
 );
 
+export const fetchGetStrategies = createAsyncThunk<string[]>(
+  '/enum/fetchGetStrategies',
+  async (_, { rejectWithValue }) => {
+    return await getEnumValues('strategyname')
+      .then((res) => res)
+      .catch((err) => rejectWithValue((err as IError).message));
+  }
+);
+
 interface IEnumSlice {
   timeframes: string[];
   backTestParams: string[];
+  strategies: string[];
 }
 
 const initialState: IEnumSlice = {
   timeframes: [],
   backTestParams: [],
+  strategies: [],
 };
 
 export const enumSlice = createSlice({
@@ -52,6 +63,15 @@ export const enumSlice = createSlice({
         fetchGetBackTestParams.fulfilled,
         (state, action: PayloadAction<string[]>) => {
           state.backTestParams = action.payload;
+        }
+      )
+      .addCase(fetchGetStrategies.pending, (state) => {
+        state.strategies = [];
+      })
+      .addCase(
+        fetchGetStrategies.fulfilled,
+        (state, action: PayloadAction<string[]>) => {
+          state.strategies = action.payload;
         }
       );
   },

@@ -3,12 +3,16 @@ import { userSlice } from '../slices/userSlice.ts';
 import { instrumentSlice } from '../slices/instrumentSlice.ts';
 import { enumSlice } from '../slices/enumSlice.ts';
 import { backTestsSlice } from '../slices/backTestsSlice.ts';
+import { strategySlice } from '../slices/strategySlice.ts';
+import { archiveSlice } from '../slices/archiveSlice.ts';
 
 const rootReducer = combineSlices(
   userSlice,
   instrumentSlice,
   enumSlice,
-  backTestsSlice
+  backTestsSlice,
+  strategySlice,
+  archiveSlice
 );
 
 export const store = configureStore({

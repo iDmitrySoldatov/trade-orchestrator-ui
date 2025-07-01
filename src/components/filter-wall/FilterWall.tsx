@@ -1,6 +1,5 @@
 import styles from './filter-wall.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
-import { STRATEGY_NAMES } from '../../utils/constants.ts';
 import Dropdown from '../inputs/dropdown/Dropdown.tsx';
 import { useEffect, useState } from 'react';
 import InstrumentCheckboxGroup from '../inputs/instrument-checkbox-group/InstrumentCheckboxGroup.tsx';
@@ -18,7 +17,7 @@ const FilterWall = () => {
 
   const { items } = useAppSelector((state) => state.instrument);
 
-  const { timeframes } = useAppSelector((state) => state.enum);
+  const { timeframes, strategies } = useAppSelector((state) => state.enum);
 
   const [strategyName, setStrategyName] = useState<string>(
     localFilter.strategyName
@@ -133,7 +132,9 @@ const FilterWall = () => {
       <div>
         <h3>Стратегия</h3>
         <Dropdown
-          options={STRATEGY_NAMES.map((current) => current)}
+          options={strategies.map((current) => {
+            return { label: current, value: current };
+          })}
           selected={strategyName}
           onChange={handleChangeStrategyName}
         />

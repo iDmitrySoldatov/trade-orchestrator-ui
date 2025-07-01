@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
 import {
   fetchGetBackTestParams,
+  fetchGetStrategies,
   fetchGetTimeframes,
 } from '../../slices/enumSlice.ts';
 import ActiveButton from '../../components/buttons/active-button/ActiveButton.tsx';
@@ -16,7 +17,8 @@ import PageSelector from '../../components/page-selector/PageSelector.tsx';
 import Modal from '../../components/modal/Modal.tsx';
 import ReportDetails from '../../components/report-details/ReportDetails.tsx';
 import { IReport } from '../../utils/types.ts';
-import StartForm from '../../components/forms/start-form/StartForm.tsx';
+import StartBackTestForm from '../../components/forms/start-back-test-form/StartBackTestForm.tsx';
+import { fetchGetAllInstrument } from '../../slices/instrumentSlice.ts';
 
 const BackTestsPage = () => {
   const dispatch = useAppDispatch();
@@ -34,10 +36,19 @@ const BackTestsPage = () => {
   useEffect(() => {
     dispatch(fetchGetTimeframes());
     dispatch(fetchGetBackTestParams());
+    dispatch(fetchGetStrategies());
+    dispatch(fetchGetAllInstrument());
   }, []);
 
   useEffect(() => {
     dispatch(fetchReports(filter));
+    const intervalId = setInterval(() => {
+      dispatch(fetchReports(filter));
+    }, 3000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [filter]);
 
   const handleSetOrderBy = (orderBy: string) => {
@@ -82,7 +93,9 @@ const BackTestsPage = () => {
             <div className={styles.sorting_container}>
               <p>сортировка: </p>
               <Dropdown
-                options={STATS_FIELDS.map((current) => current)}
+                options={STATS_FIELDS.map((current) => {
+                  return { label: current, value: current };
+                })}
                 selected={orderBy}
                 onChange={handleSetOrderBy}
               />
@@ -117,7 +130,7 @@ const BackTestsPage = () => {
 
       {showStart && (
         <Modal onClose={handleCloseStart}>
-          <StartForm />
+          <StartBackTestForm />
         </Modal>
       )}
     </>

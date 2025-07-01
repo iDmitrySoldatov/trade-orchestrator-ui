@@ -7,7 +7,7 @@
 
 .container h1{
     text-align: center;
-    font-size: 2em;
+    font-size: 2rem;
     cursor: default;
 }
 
@@ -34,15 +34,17 @@
     padding-right: 5rem;
 }
 
-.param {
-    display: flex;
+.params_container .flexrow {
     justify-content: space-between;
-    align-items: end;
 }
 
-.buttons_contaier {
+.buttons_container {
     display: flex;
-    gap: 2rem;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 1rem;
+}
+
+.red {
+    color: red;
 }

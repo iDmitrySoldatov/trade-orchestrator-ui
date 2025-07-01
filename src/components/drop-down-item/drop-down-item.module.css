@@ -1,0 +1,22 @@
+.container {
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.header p {
+    flex: 1;
+    font-weight: bold;
+}
+
+.arrow {
+    position: absolute;
+    height: 0.8rem;
+    cursor: pointer;
+    right: 2rem;
+}

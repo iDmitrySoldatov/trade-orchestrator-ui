@@ -36,3 +36,22 @@
 .red {
     color: red;
 }
+
+.buttons_container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.order_container {
+    margin-bottom: 2rem;
+}
+
+.event_container {
+    margin-bottom: 0.5rem;
+}
+
+.id {
+    color: gray;
+}
