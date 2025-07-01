@@ -18,6 +18,7 @@ import Modal from '../../components/modal/Modal.tsx';
 import ReportDetails from '../../components/report-details/ReportDetails.tsx';
 import { IReport } from '../../utils/types.ts';
 import StartBackTestForm from '../../components/forms/start-back-test-form/StartBackTestForm.tsx';
+import { fetchGetAllInstrument } from '../../slices/instrumentSlice.ts';
 
 const BackTestsPage = () => {
   const dispatch = useAppDispatch();
@@ -36,10 +37,18 @@ const BackTestsPage = () => {
     dispatch(fetchGetTimeframes());
     dispatch(fetchGetBackTestParams());
     dispatch(fetchGetStrategies());
+    dispatch(fetchGetAllInstrument());
   }, []);
 
   useEffect(() => {
     dispatch(fetchReports(filter));
+    const intervalId = setInterval(() => {
+      dispatch(fetchReports(filter));
+    }, 3000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [filter]);
 
   const handleSetOrderBy = (orderBy: string) => {

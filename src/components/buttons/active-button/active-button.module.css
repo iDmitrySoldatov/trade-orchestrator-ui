@@ -10,6 +10,14 @@
     background-color: #ead8b9;
 }
 
+.red {
+    background-color: #ffaaaa;
+}
+
+.red:hover {
+    background-color: #e89b9b;
+}
+
 @media (max-width: 768px) {
     .button {
         padding: 0.3em 1em;

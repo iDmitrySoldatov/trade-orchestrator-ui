@@ -1,15 +1,7 @@
 import { request } from './request.ts';
+import { IStartStrategy } from '../utils/types.ts';
 
 const LOCAL_BASE_URL = '/strategy';
-
-interface IStartStrategy {
-  strategyName: string;
-  symbol: number;
-  timeframe: string;
-  lotQuantity: number;
-  stopLossCoefficient: number;
-  takeProfitCoefficient: number;
-}
 
 export const getStrategies = async () => {
   return await request(LOCAL_BASE_URL);
@@ -26,6 +18,18 @@ export const startStrategy = async (data: IStartStrategy) => {
 export const stopStrategy = async (id: number) => {
   return await request(LOCAL_BASE_URL + '/' + id, {
     method: 'DELETE',
+  });
+};
+
+export const pauseStrategy = async (id: number) => {
+  return await request(LOCAL_BASE_URL + '/' + id + '?interrupt=true', {
+    method: 'DELETE',
+  });
+};
+
+export const recoveryStrategy = async (id: number) => {
+  return await request(LOCAL_BASE_URL + '/' + id, {
+    method: 'POST',
   });
 };
 

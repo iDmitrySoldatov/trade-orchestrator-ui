@@ -44,6 +44,7 @@ const AppHeader = () => {
         <Link to="/instrument">Инструмент</Link>
         <Link to="/backtests">Бэктесты</Link>
         <Link to="/strategy">Стратегии</Link>
+        <Link to="/archive">Архив</Link>
       </nav>
 
       <button
@@ -79,6 +80,14 @@ const AppHeader = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             Стратегии
+          </Link>
+
+          <Link
+            to="/archive"
+            className={styles.mobile_link}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Архив
           </Link>
         </div>
       )}

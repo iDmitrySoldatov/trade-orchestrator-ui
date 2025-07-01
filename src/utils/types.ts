@@ -2,8 +2,6 @@ import {
   EXCHANGES,
   STRATEGY_EVENT_TYPES,
   STRATEGY_NAMES,
-  STRATEGY_ORDER_STATES,
-  STRATEGY_STATES,
 } from './constants.ts';
 
 export interface IUser {
@@ -19,10 +17,6 @@ export interface IError {
 export type Exchange = (typeof EXCHANGES)[number];
 
 export type StrategyNames = (typeof STRATEGY_NAMES)[number];
-
-export type StrategyState = (typeof STRATEGY_STATES)[number];
-
-export type StrategyOrderState = (typeof STRATEGY_ORDER_STATES)[number];
 
 export type StrategyEventType = (typeof STRATEGY_EVENT_TYPES)[number];
 
@@ -84,7 +78,7 @@ export interface IStrategy {
   id: number;
   strategyName: string;
   timeframe: string;
-  state: StrategyState;
+  state: string;
   isResponsible: boolean;
   instrument: IInstrument;
   lotQuantity: number;
@@ -92,8 +86,11 @@ export interface IStrategy {
 }
 
 export interface IOrder {
-  state: StrategyOrderState;
-  price: number;
+  guid: string;
+  openPrice: number;
+  closePrice: number;
+  openCommission: number;
+  closeCommission: number;
   stopLoss: number;
   takeProfit: number;
   result: number;
@@ -102,7 +99,16 @@ export interface IOrder {
 
 export interface IEvent {
   eventType: StrategyEventType;
-  strategyState: StrategyState;
+  strategyState: string;
   message: string;
   createdAt: string;
+}
+
+export interface IStartStrategy {
+  strategyName: string;
+  symbol: number;
+  timeframe: string;
+  lotQuantity: number;
+  stopLossCoefficient: number;
+  takeProfitCoefficient: number;
 }

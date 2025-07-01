@@ -6,8 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../services/hooks.ts';
 import InputFloat from '../../inputs/input-float/InputFloat.tsx';
 import InactiveButton from '../../buttons/inactive-button/InactiveButton.tsx';
 import ActiveButton from '../../buttons/active-button/ActiveButton.tsx';
-import { strategySlice } from '../../../slices/strategySlice.ts';
-import { startStrategy } from '../../../services/strategyService.ts';
+import { fetchStartStrategy } from '../../../slices/strategySlice.ts';
 import InputNumber from '../../inputs/input-number/InputNumber.tsx';
 import { fetchGetTimeframes } from '../../../slices/enumSlice.ts';
 
@@ -15,6 +14,7 @@ const StartStrategyForm = () => {
   const dispatch = useAppDispatch();
   const { items } = useAppSelector((state) => state.instrument);
   const { timeframes } = useAppSelector((state) => state.enum);
+  const { isStarting, error } = useAppSelector((state) => state.strategy);
   const [strategyName, setStrategyName] = useState<string>(STRATEGY_NAMES[0]);
 
   const [selectedInstrumentId, setSelectedInstrumentId] = useState<number>(
@@ -31,19 +31,17 @@ const StartStrategyForm = () => {
     setSelectedInstrumentId(+instrumentId);
   };
 
-  const handleClose = () => {
-    dispatch(strategySlice.actions.setShowStart(false));
-  };
-
   const handleSubmit = () => {
-    startStrategy({
-      strategyName: strategyName,
-      symbol: selectedInstrumentId || 0,
-      timeframe: selectedTimeframe,
-      lotQuantity: lotQuantity,
-      stopLossCoefficient: +stopLoss,
-      takeProfitCoefficient: +takeProfit,
-    }).then(() => handleClose());
+    dispatch(
+      fetchStartStrategy({
+        strategyName: strategyName,
+        symbol: selectedInstrumentId || 0,
+        timeframe: selectedTimeframe,
+        lotQuantity: lotQuantity,
+        stopLossCoefficient: +stopLoss,
+        takeProfitCoefficient: +takeProfit,
+      })
+    );
   };
 
   useEffect(() => {
@@ -116,9 +114,17 @@ const StartStrategyForm = () => {
       </div>
 
       <div className={styles.buttons_container}>
-        <InactiveButton onClick={handleClose}>Отмена</InactiveButton>
+        <p className={styles.red}>{error as string}</p>
 
-        <ActiveButton onClick={handleSubmit}>Запустить Стратегию</ActiveButton>
+        {isStarting ? (
+          <InactiveButton onClick={() => {}}>
+            Запустить Стратегию
+          </InactiveButton>
+        ) : (
+          <ActiveButton onClick={handleSubmit}>
+            Запустить Стратегию
+          </ActiveButton>
+        )}
       </div>
     </div>
   );

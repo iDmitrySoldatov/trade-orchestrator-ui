@@ -1,27 +1,27 @@
-import styles from './strategy-page.module.css';
-import AppHeader from '../../components/app-header/AppHeader.tsx';
-import StrategyItem from '../../components/strategy-item/StrategyItem.tsx';
+import styles from './archive-page.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
 import { useEffect } from 'react';
-import { fetchStrategies, strategySlice } from '../../slices/strategySlice.ts';
-import ActiveButton from '../../components/buttons/active-button/ActiveButton.tsx';
-import Modal from '../../components/modal/Modal.tsx';
-import { IStrategy } from '../../utils/types.ts';
-import StartStrategyForm from '../../components/forms/start-strategy-form/StartStrategyForm.tsx';
 import { fetchGetTimeframes } from '../../slices/enumSlice.ts';
-import StrategyDetails from '../../components/strategy-details/StrategyDetails.tsx';
 import { fetchGetAllInstrument } from '../../slices/instrumentSlice.ts';
+import { IStrategy } from '../../utils/types.ts';
+import AppHeader from '../../components/app-header/AppHeader.tsx';
+import ActiveButton from '../../components/buttons/active-button/ActiveButton.tsx';
+import StrategyItem from '../../components/strategy-item/StrategyItem.tsx';
+import Modal from '../../components/modal/Modal.tsx';
+import StrategyDetails from '../../components/strategy-details/StrategyDetails.tsx';
+import { fetchArchiveStrategies } from '../../slices/archiveSlice.ts';
+import { strategySlice } from '../../slices/strategySlice.ts';
 
-const StrategyPage = () => {
+const ArchivePage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchGetTimeframes());
     dispatch(fetchGetAllInstrument());
-    dispatch(fetchStrategies());
+    dispatch(fetchArchiveStrategies());
 
     const intervalId = setInterval(() => {
-      dispatch(fetchStrategies());
+      dispatch(fetchArchiveStrategies());
     }, 5000);
 
     return () => {
@@ -29,17 +29,12 @@ const StrategyPage = () => {
     };
   }, []);
 
-  const { strategies, showStart, showDetails } = useAppSelector(
-    (state) => state.strategy
-  );
+  const { strategies } = useAppSelector((state) => state.archive);
+
+  const { showDetails } = useAppSelector((state) => state.strategy);
 
   const handleCloseDetails = () => {
     dispatch(strategySlice.actions.setShowDetails(false));
-  };
-
-  const handleCloseStart = () => {
-    dispatch(strategySlice.actions.setShowStart(false));
-    dispatch(strategySlice.actions.resetError());
   };
 
   const handleShowDetails = (strategy: IStrategy) => {
@@ -47,12 +42,8 @@ const StrategyPage = () => {
     dispatch(strategySlice.actions.setShowDetails(true));
   };
 
-  const handleShowStart = () => {
-    dispatch(strategySlice.actions.setShowStart(true));
-  };
-
   const handleUpdateClick = () => {
-    dispatch(fetchStrategies());
+    dispatch(fetchArchiveStrategies());
   };
 
   return (
@@ -61,10 +52,6 @@ const StrategyPage = () => {
       <div className={styles.container}>
         <div className={styles.content_header}>
           <ActiveButton onClick={handleUpdateClick}>Обновить</ActiveButton>
-
-          <ActiveButton onClick={handleShowStart}>
-            Запустить стратегию
-          </ActiveButton>
         </div>
 
         <div className={styles.strategy_container}>
@@ -83,14 +70,8 @@ const StrategyPage = () => {
           <StrategyDetails />
         </Modal>
       )}
-
-      {showStart && (
-        <Modal onClose={handleCloseStart}>
-          <StartStrategyForm />
-        </Modal>
-      )}
     </>
   );
 };
 
-export default StrategyPage;
+export default ArchivePage;

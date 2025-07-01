@@ -45,9 +45,13 @@
 }
 
 .order_container {
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
 }
 
 .event_container {
     margin-bottom: 0.5rem;
+}
+
+.id {
+    color: gray;
 }
