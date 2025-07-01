@@ -16,21 +16,4 @@ export const STATS_FIELDS = [
   'SHARPE_RATIO',
 ] as const;
 
-export const STRATEGY_STATES = [
-  'PENDING',
-  'WORKING',
-  'INTERRUPTED',
-  'CANCELED',
-  'ERROR',
-  'UNKNOWN',
-] as const;
-
-export const STRATEGY_ORDER_STATES = [
-  'PREPARED',
-  'OPEN',
-  'CREATED',
-  'FILLED',
-  'ERROR',
-] as const;
-
 export const STRATEGY_EVENT_TYPES = ['TICK', 'ACTION', 'ERROR'] as const;

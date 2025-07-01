@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
 import {
   fetchAddSymbol,
-  fetchGetAll,
+  fetchGetAllInstrument,
   instrumentSlice,
 } from '../../slices/instrumentSlice.ts';
 import AppHeader from '../../components/app-header/AppHeader.tsx';
@@ -18,7 +18,7 @@ const InstrumentPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(fetchGetAll());
+    dispatch(fetchGetAllInstrument());
   }, []);
 
   const handleAddClick = () => {
@@ -27,7 +27,7 @@ const InstrumentPage = () => {
 
   const handleSubmit = (exchange: Exchange, symbol: string) => {
     dispatch(fetchAddSymbol({ exchange: exchange, symbol: symbol })).then(() =>
-      dispatch(fetchGetAll())
+      dispatch(fetchGetAllInstrument())
     );
   };
 

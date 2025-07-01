@@ -40,7 +40,11 @@
 
 .buttons_container {
     display: flex;
-    gap: 2rem;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 1rem;
+}
+
+.red {
+    color: red;
 }

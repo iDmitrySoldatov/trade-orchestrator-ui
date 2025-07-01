@@ -7,7 +7,7 @@ interface IAddRequest {
   exchange: Exchange;
 }
 
-export const fetchGetAll = createAsyncThunk<IInstrument[]>(
+export const fetchGetAllInstrument = createAsyncThunk<IInstrument[]>(
   '/instrument/fetchGetAll',
   async (_, { rejectWithValue }) => {
     return await getAllInstruments()
@@ -53,11 +53,11 @@ export const instrumentSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchGetAll.pending, (state) => {
+      .addCase(fetchGetAllInstrument.pending, (state) => {
         state.items = initialState.items;
       })
       .addCase(
-        fetchGetAll.fulfilled,
+        fetchGetAllInstrument.fulfilled,
         (state, action: PayloadAction<IInstrument[]>) => {
           state.items = action.payload;
         }

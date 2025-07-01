@@ -1,7 +1,11 @@
 import styles from './strategy-details.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
 import ActiveButton from '../buttons/active-button/ActiveButton.tsx';
-import { stopStrategy } from '../../services/strategyService.ts';
+import {
+  pauseStrategy,
+  recoveryStrategy,
+  stopStrategy,
+} from '../../services/strategyService.ts';
 import {
   fetchEvents,
   fetchOrders,
@@ -33,11 +37,31 @@ const StrategyDetails = () => {
     stopStrategy(currentStrategy.id).then(() => handleClose());
   };
 
+  const handlePause = () => {
+    if (!currentStrategy) return null;
+    pauseStrategy(currentStrategy.id).then(() => handleClose());
+  };
+  const handleRecovery = () => {
+    if (!currentStrategy) return null;
+    recoveryStrategy(currentStrategy.id).then(() => handleClose());
+  };
+
   useEffect(() => {
     if (currentStrategy) {
       dispatch(fetchOrders(currentStrategy.id));
       dispatch(fetchEvents(currentStrategy.id));
     }
+
+    const intervalId = setInterval(() => {
+      if (currentStrategy) {
+        dispatch(fetchOrders(currentStrategy.id));
+        dispatch(fetchEvents(currentStrategy.id));
+      }
+    }, 5000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
   }, [currentStrategy]);
 
   if (!currentStrategy) return null;
@@ -94,18 +118,50 @@ const StrategyDetails = () => {
       </div>
 
       <div className={styles.chapter_container}>
-        <DropDownItem label="Заказы">
+        <DropDownItem label="Сделки">
           {orders.length === 0 ? (
             <p>Заказов пока нет</p>
           ) : (
             orders.map((order, index) => (
-              <div key={index} className={styles.order_container}>
-                <p>{new Date(order.updatedAt).toLocaleDateString()}</p>
-                <p>Цена: {order.price}</p>
-                <p>Take profit: {order.takeProfit}</p>
-                <p>Stop loss: {order.stopLoss}</p>
-                <p>Статус: {order.state}</p>
-                <p>Результат: {order.result}</p>
+              <div className={styles.order_container} key={index}>
+                <p className={styles.id}>{order.guid}</p>
+
+                <div className={styles.record_container}>
+                  <div className={styles.record}>
+                    <p>Последнее обновление</p>
+                    <p>{new Date(order.updatedAt + 'Z').toLocaleString()}</p>
+                  </div>
+
+                  <div className={styles.record}>
+                    <p>Комиссия</p>
+                    <p>{order.openCommission + order.closeCommission}₽</p>
+                  </div>
+
+                  <div className={styles.record}>
+                    <p>Open price</p>
+                    <p>{order.openPrice}</p>
+                  </div>
+
+                  <div className={styles.record}>
+                    <p>Close price</p>
+                    <p>{order.closePrice}</p>
+                  </div>
+
+                  <div className={styles.record}>
+                    <p>Take profit</p>
+                    <p>{order.takeProfit}</p>
+                  </div>
+
+                  <div className={styles.record}>
+                    <p>Stop loss</p>
+                    <p>{order.stopLoss}</p>
+                  </div>
+
+                  <div className={styles.record}>
+                    <p>Result</p>
+                    <p>{order.result}</p>
+                  </div>
+                </div>
               </div>
             ))
           )}
@@ -119,10 +175,11 @@ const StrategyDetails = () => {
           ) : (
             events.map((event, index) => (
               <div key={index} className={styles.event_container}>
-                <p>{new Date(event.createdAt).toLocaleString()}</p>
-                <p>
-                  {event.eventType} {event.message}
-                </p>
+                <p>{new Date(event.createdAt + 'Z').toLocaleString()}</p>
+                <span className={event.eventType === 'ERROR' ? styles.red : ''}>
+                  {event.eventType}
+                </span>
+                <span> - {event.message}</span>
               </div>
             ))
           )}
@@ -130,7 +187,13 @@ const StrategyDetails = () => {
       </div>
 
       <div className={styles.buttons_container}>
-        <ActiveButton onClick={handleStop}>Остановить стратегию</ActiveButton>
+        <ActiveButton onClick={handleStop} color="red">
+          Остановить стратегию
+        </ActiveButton>
+
+        <ActiveButton onClick={handlePause}>Пауза</ActiveButton>
+
+        <ActiveButton onClick={handleRecovery}>Возобновить</ActiveButton>
       </div>
     </div>
   );

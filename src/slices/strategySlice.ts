@@ -1,9 +1,16 @@
-import { IError, IEvent, IOrder, IStrategy } from '../utils/types.ts';
+import {
+  IError,
+  IEvent,
+  IOrder,
+  IStartStrategy,
+  IStrategy,
+} from '../utils/types.ts';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   getEvents,
   getOrders,
   getStrategies,
+  startStrategy,
 } from '../services/strategyService.ts';
 
 export const fetchStrategies = createAsyncThunk(
@@ -33,6 +40,15 @@ export const fetchEvents = createAsyncThunk<IEvent[], number>(
   }
 );
 
+export const fetchStartStrategy = createAsyncThunk<string, IStartStrategy>(
+  'strategy/fetchStartStrategy',
+  async (data, { rejectWithValue }) => {
+    return await startStrategy(data)
+      .then((res) => res)
+      .catch((err) => rejectWithValue((err as IError).message));
+  }
+);
+
 interface IStrategySlice {
   strategies: IStrategy[];
   currentStrategy: IStrategy | null;
@@ -40,6 +56,8 @@ interface IStrategySlice {
   events: IEvent[];
   showStart: boolean;
   showDetails: boolean;
+  isStarting: boolean;
+  error: string | unknown;
 }
 
 const initialState: IStrategySlice = {
@@ -49,6 +67,8 @@ const initialState: IStrategySlice = {
   events: [],
   showStart: false,
   showDetails: false,
+  isStarting: false,
+  error: '',
 };
 
 export const strategySlice = createSlice({
@@ -63,6 +83,9 @@ export const strategySlice = createSlice({
     },
     setShowStart(state, action: PayloadAction<boolean>) {
       state.showStart = action.payload;
+    },
+    resetError(state) {
+      state.error = '';
     },
   },
   extraReducers: (builder) => {
@@ -84,6 +107,21 @@ export const strategySlice = createSlice({
         (state, action: PayloadAction<IEvent[]>) => {
           state.events = action.payload;
         }
-      );
+      )
+      .addCase(fetchStartStrategy.pending, (state) => {
+        state.error = '';
+        state.isStarting = true;
+      })
+      .addCase(
+        fetchStartStrategy.rejected,
+        (state, action: PayloadAction<string | unknown>) => {
+          state.isStarting = false;
+          state.error = action.payload;
+        }
+      )
+      .addCase(fetchStartStrategy.fulfilled, (state) => {
+        state.isStarting = false;
+        state.showStart = false;
+      });
   },
 });
