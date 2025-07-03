@@ -44,7 +44,7 @@ const BackTestsPage = () => {
     dispatch(fetchReports(filter));
     const intervalId = setInterval(() => {
       dispatch(fetchReports(filter));
-    }, 3000);
+    }, 30000);
 
     return () => {
       clearInterval(intervalId);

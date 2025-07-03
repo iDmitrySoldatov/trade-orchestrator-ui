@@ -1,15 +1,7 @@
-import { IBackTestsFilter } from '../utils/types.ts';
+import { IBackTest, IBackTestsFilter } from '../utils/types.ts';
 import { request } from './request.ts';
 
 const LOCAL_BASE_URL = '/back-test';
-
-interface IBackTest {
-  strategyName: string;
-  symbols: number[];
-  timeframes: string[];
-  periodInMonth: number;
-  params: Record<string, string>;
-}
 
 export const getReports = async (filters: IBackTestsFilter) => {
   const params = new URLSearchParams();
