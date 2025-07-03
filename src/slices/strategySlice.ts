@@ -93,7 +93,9 @@ export const strategySlice = createSlice({
       .addCase(
         fetchStrategies.fulfilled,
         (state, action: PayloadAction<IStrategy[]>) => {
-          state.strategies = action.payload;
+          const strategies = action.payload;
+          strategies.sort((a, b) => b.id - a.id);
+          state.strategies = strategies;
         }
       )
       .addCase(

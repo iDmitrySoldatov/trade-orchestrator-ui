@@ -27,7 +27,14 @@ export const archiveSlice = createSlice({
     builder.addCase(
       fetchArchiveStrategies.fulfilled,
       (state, action: PayloadAction<IStrategy[]>) => {
-        state.strategies = action.payload;
+        const strategies = action.payload;
+        strategies.sort((a, b) => {
+          if (a.profit === 0 && b.profit !== 0) return 1;
+          if (a.profit !== 0 && b.profit === 0) return -1;
+          if (a.profit === 0 && b.profit === 0) return 0;
+          return b.profit - a.profit;
+        });
+        state.strategies = strategies;
       }
     );
   },

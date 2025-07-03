@@ -9,8 +9,10 @@ import InputNumber from '../../inputs/input-number/InputNumber.tsx';
 import InputFloat from '../../inputs/input-float/InputFloat.tsx';
 import ActiveButton from '../../buttons/active-button/ActiveButton.tsx';
 import InactiveButton from '../../buttons/inactive-button/InactiveButton.tsx';
-import { backTestsSlice } from '../../../slices/backTestsSlice.ts';
-import { startBackTest } from '../../../services/backTestsService.ts';
+import {
+  backTestsSlice,
+  fetchStartBackTest,
+} from '../../../slices/backTestsSlice.ts';
 
 const StartBackTestForm = () => {
   const [strategyName, setStrategyName] = useState<string>(STRATEGY_NAMES[0]);
@@ -28,7 +30,11 @@ const StartBackTestForm = () => {
   const [params, setParams] = useState<Record<string, string>>(() => {
     const initialParams: Record<string, string> = {};
     backTestParams?.forEach((param) => {
-      initialParams[param] = '';
+      if (param === 'COMMISSION_RATE') {
+        initialParams[param] = '0.1';
+      } else {
+        initialParams[param] = '';
+      }
     });
     return initialParams;
   });
@@ -66,13 +72,15 @@ const StartBackTestForm = () => {
 
   const handleSubmit = () => {
     const paramsString = getParamsString();
-    startBackTest({
-      strategyName: strategyName,
-      symbols: selectedInstrumentIds,
-      timeframes: selectedTimeframes,
-      periodInMonth: period,
-      params: paramsString,
-    }).then(() => handleClose());
+    dispatch(
+      fetchStartBackTest({
+        strategyName: strategyName,
+        symbols: selectedInstrumentIds,
+        timeframes: selectedTimeframes,
+        periodInMonth: period,
+        params: paramsString,
+      })
+    ).then(() => handleClose());
   };
 
   return (

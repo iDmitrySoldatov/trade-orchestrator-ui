@@ -66,12 +66,10 @@ export const instrumentSlice = createSlice({
         state.error = '';
       })
       .addCase(fetchAddSymbol.rejected, (state, action) => {
-        console.log(action.payload);
         state.error = action.payload as string;
       })
       .addCase(fetchAddSymbol.fulfilled, (state) => {
         state.isAddModalOpen = false;
-        console.log(state.isAddModalOpen);
       });
   },
 });

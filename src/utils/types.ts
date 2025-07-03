@@ -83,6 +83,8 @@ export interface IStrategy {
   instrument: IInstrument;
   lotQuantity: number;
   profit: number;
+  stopLossCoefficient: number;
+  takeProfitCoefficient: number;
 }
 
 export interface IOrder {
@@ -94,6 +96,7 @@ export interface IOrder {
   stopLoss: number;
   takeProfit: number;
   result: number;
+  orderSide: string;
   updatedAt: string;
 }
 
@@ -111,4 +114,12 @@ export interface IStartStrategy {
   lotQuantity: number;
   stopLossCoefficient: number;
   takeProfitCoefficient: number;
+}
+
+export interface IBackTest {
+  strategyName: string;
+  symbols: number[];
+  timeframes: string[];
+  periodInMonth: number;
+  params: Record<string, string>;
 }

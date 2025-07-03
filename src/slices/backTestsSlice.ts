@@ -1,11 +1,12 @@
 import {
+  IBackTest,
   IBackTestsFilter,
   IBackTestsResponse,
   IError,
   IReport,
 } from '../utils/types.ts';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getReports } from '../services/backTestsService.ts';
+import { getReports, startBackTest } from '../services/backTestsService.ts';
 import { STATS_FIELDS } from '../utils/constants.ts';
 
 export const fetchReports = createAsyncThunk<
@@ -17,12 +18,22 @@ export const fetchReports = createAsyncThunk<
     .catch((err) => rejectWithValue((err as IError).message));
 });
 
+export const fetchStartBackTest = createAsyncThunk<void, IBackTest>(
+  '/backTests/fetchStartBackTest',
+  async (data, { rejectWithValue }) => {
+    return await startBackTest(data)
+      .then((res) => res)
+      .catch((err) => rejectWithValue((err as IError).message));
+  }
+);
+
 interface IBackTestsSlice {
   filter: IBackTestsFilter;
   reports: IBackTestsResponse;
   currentReport: IReport | null;
   showDetails: boolean;
   showStart: boolean;
+  error: string | unknown;
 }
 
 const initialState: IBackTestsSlice = {
@@ -45,6 +56,7 @@ const initialState: IBackTestsSlice = {
   currentReport: null,
   showDetails: false,
   showStart: false,
+  error: '',
 };
 
 export const backTestsSlice = createSlice({
@@ -62,6 +74,9 @@ export const backTestsSlice = createSlice({
     },
     setShowStart(state, action: PayloadAction<boolean>) {
       state.showStart = action.payload;
+    },
+    resetError(state) {
+      state.error = '';
     },
   },
   extraReducers: (builder) => {
