@@ -111,6 +111,16 @@ const StrategyDetails = () => {
           </div>
 
           <div className={styles.record}>
+            <p>Stop loss</p>
+            <p>{currentStrategy.stopLossCoefficient}</p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Take profit</p>
+            <p>{currentStrategy.takeProfitCoefficient}</p>
+          </div>
+
+          <div className={styles.record}>
             <p>Отвечает на запросы</p>
             <p>{currentStrategy.isResponsible ? 'Да' : 'Нет'}</p>
           </div>
@@ -134,7 +144,12 @@ const StrategyDetails = () => {
 
                   <div className={styles.record}>
                     <p>Комиссия</p>
-                    <p>{order.openCommission + order.closeCommission}₽</p>
+                    <p>
+                      {(order.openCommission + order.closeCommission).toFixed(
+                        2
+                      )}
+                      ₽
+                    </p>
                   </div>
 
                   <div className={styles.record}>
@@ -160,6 +175,11 @@ const StrategyDetails = () => {
                   <div className={styles.record}>
                     <p>Result</p>
                     <p>{order.result}</p>
+                  </div>
+
+                  <div className={styles.record}>
+                    <p>Операция</p>
+                    <p>{order.orderSide.toUpperCase()}</p>
                   </div>
                 </div>
               </div>

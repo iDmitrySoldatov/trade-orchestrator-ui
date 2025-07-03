@@ -22,7 +22,7 @@ const ArchivePage = () => {
 
     const intervalId = setInterval(() => {
       dispatch(fetchArchiveStrategies());
-    }, 5000);
+    }, 30000);
 
     return () => {
       clearInterval(intervalId);
