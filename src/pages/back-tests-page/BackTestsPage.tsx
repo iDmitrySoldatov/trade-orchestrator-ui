@@ -67,6 +67,7 @@ const BackTestsPage = () => {
 
   const handleCloseStart = () => {
     dispatch(backTestsSlice.actions.setShowStart(false));
+    dispatch(backTestsSlice.actions.resetError());
   };
 
   const handleShowDetails = (report: IReport) => {

@@ -28,6 +28,7 @@ export interface IInstrument {
   currency: string;
   pointPrice: number;
   minStep: number;
+  lotSize: number;
 }
 
 export interface IBackTestsFilter {

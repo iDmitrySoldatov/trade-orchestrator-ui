@@ -35,6 +35,7 @@ const StrategyPage = () => {
 
   const handleCloseDetails = () => {
     dispatch(strategySlice.actions.setShowDetails(false));
+    dispatch(strategySlice.actions.resetError());
   };
 
   const handleCloseStart = () => {

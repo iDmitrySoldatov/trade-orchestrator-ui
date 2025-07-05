@@ -33,6 +33,7 @@ interface IBackTestsSlice {
   currentReport: IReport | null;
   showDetails: boolean;
   showStart: boolean;
+  isStarting: boolean;
   error: string | unknown;
 }
 
@@ -56,6 +57,7 @@ const initialState: IBackTestsSlice = {
   currentReport: null,
   showDetails: false,
   showStart: false,
+  isStarting: false,
   error: '',
 };
 
@@ -80,11 +82,27 @@ export const backTestsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(
-      fetchReports.fulfilled,
-      (state, action: PayloadAction<IBackTestsResponse>) => {
-        state.reports = action.payload;
-      }
-    );
+    builder
+      .addCase(
+        fetchReports.fulfilled,
+        (state, action: PayloadAction<IBackTestsResponse>) => {
+          state.reports = action.payload;
+        }
+      )
+      .addCase(fetchStartBackTest.pending, (state) => {
+        state.error = '';
+        state.isStarting = true;
+      })
+      .addCase(
+        fetchStartBackTest.rejected,
+        (state, action: PayloadAction<string | unknown>) => {
+          state.error = action.payload;
+          state.isStarting = false;
+        }
+      )
+      .addCase(fetchStartBackTest.fulfilled, (state) => {
+        state.showStart = false;
+        state.isStarting = false;
+      });
   },
 });
