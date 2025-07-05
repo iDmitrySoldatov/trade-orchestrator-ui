@@ -2,21 +2,18 @@ import styles from './strategy-details.module.css';
 import { useAppDispatch, useAppSelector } from '../../services/hooks.ts';
 import ActiveButton from '../buttons/active-button/ActiveButton.tsx';
 import {
-  pauseStrategy,
-  recoveryStrategy,
-  stopStrategy,
-} from '../../services/strategyService.ts';
-import {
   fetchEvents,
   fetchOrders,
-  strategySlice,
+  fetchPause,
+  fetchRecovery,
+  fetchStop,
 } from '../../slices/strategySlice.ts';
 import DropDownItem from '../drop-down-item/DropDownItem.tsx';
 import { useEffect } from 'react';
 
 const StrategyDetails = () => {
   const dispatch = useAppDispatch();
-  const { currentStrategy, orders, events } = useAppSelector(
+  const { currentStrategy, orders, events, error } = useAppSelector(
     (state) => state.strategy
   );
 
@@ -28,22 +25,18 @@ const StrategyDetails = () => {
     }
   };
 
-  const handleClose = () => {
-    dispatch(strategySlice.actions.setShowDetails(false));
-  };
-
   const handleStop = () => {
     if (!currentStrategy) return null;
-    stopStrategy(currentStrategy.id).then(() => handleClose());
+    dispatch(fetchStop(currentStrategy.id));
   };
 
   const handlePause = () => {
     if (!currentStrategy) return null;
-    pauseStrategy(currentStrategy.id).then(() => handleClose());
+    dispatch(fetchPause(currentStrategy.id));
   };
   const handleRecovery = () => {
     if (!currentStrategy) return null;
-    recoveryStrategy(currentStrategy.id).then(() => handleClose());
+    dispatch(fetchRecovery(currentStrategy.id));
   };
 
   useEffect(() => {
@@ -206,14 +199,17 @@ const StrategyDetails = () => {
         </DropDownItem>
       </div>
 
-      <div className={styles.buttons_container}>
-        <ActiveButton onClick={handleStop} color="red">
-          Остановить стратегию
-        </ActiveButton>
+      <div>
+        <p className={styles.red}>{error as string}</p>
+        <div className={styles.buttons_container}>
+          <ActiveButton onClick={handleStop} color="red">
+            Остановить стратегию
+          </ActiveButton>
 
-        <ActiveButton onClick={handlePause}>Пауза</ActiveButton>
+          <ActiveButton onClick={handlePause}>Пауза</ActiveButton>
 
-        <ActiveButton onClick={handleRecovery}>Возобновить</ActiveButton>
+          <ActiveButton onClick={handleRecovery}>Возобновить</ActiveButton>
+        </div>
       </div>
     </div>
   );

@@ -49,7 +49,7 @@ const InstrumentPage = () => {
           <div className={styles.head}>
             <p className={styles.name}>Название</p>
             <p className={styles.exchange}>Биржа</p>
-            <p className={styles.step}>Минимальный шаг</p>
+            <p className={styles.step}>Размер лота</p>
             <p className={styles.price}>Стоимость пункта</p>
           </div>
 

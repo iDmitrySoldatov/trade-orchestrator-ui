@@ -10,7 +10,10 @@ import {
   getEvents,
   getOrders,
   getStrategies,
+  pauseStrategy,
+  recoveryStrategy,
   startStrategy,
+  stopStrategy,
 } from '../services/strategyService.ts';
 
 export const fetchStrategies = createAsyncThunk(
@@ -35,6 +38,33 @@ export const fetchEvents = createAsyncThunk<IEvent[], number>(
   'strategy/fetchEvents',
   async (data, { rejectWithValue }) => {
     return await getEvents(data)
+      .then((res) => res)
+      .catch((err) => rejectWithValue((err as IError).message));
+  }
+);
+
+export const fetchStop = createAsyncThunk<IEvent[], number>(
+  'strategy/fetchStop',
+  async (data, { rejectWithValue }) => {
+    return await stopStrategy(data)
+      .then((res) => res)
+      .catch((err) => rejectWithValue((err as IError).message));
+  }
+);
+
+export const fetchPause = createAsyncThunk<IEvent[], number>(
+  'strategy/fetchPause',
+  async (data, { rejectWithValue }) => {
+    return await pauseStrategy(data)
+      .then((res) => res)
+      .catch((err) => rejectWithValue((err as IError).message));
+  }
+);
+
+export const fetchRecovery = createAsyncThunk<IEvent[], number>(
+  'strategy/fetchRecovery',
+  async (data, { rejectWithValue }) => {
+    return await recoveryStrategy(data)
       .then((res) => res)
       .catch((err) => rejectWithValue((err as IError).message));
   }
@@ -124,6 +154,33 @@ export const strategySlice = createSlice({
       .addCase(fetchStartStrategy.fulfilled, (state) => {
         state.isStarting = false;
         state.showStart = false;
-      });
+      })
+      .addCase(fetchStop.pending, (state) => {
+        state.error = '';
+      })
+      .addCase(
+        fetchStop.rejected,
+        (state, action: PayloadAction<string | unknown>) => {
+          state.error = action.payload;
+        }
+      )
+      .addCase(fetchPause.pending, (state) => {
+        state.error = '';
+      })
+      .addCase(
+        fetchPause.rejected,
+        (state, action: PayloadAction<string | unknown>) => {
+          state.error = action.payload;
+        }
+      )
+      .addCase(fetchRecovery.pending, (state) => {
+        state.error = '';
+      })
+      .addCase(
+        fetchRecovery.rejected,
+        (state, action: PayloadAction<string | unknown>) => {
+          state.error = action.payload;
+        }
+      );
   },
 });
