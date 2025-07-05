@@ -9,10 +9,7 @@ import InputNumber from '../../inputs/input-number/InputNumber.tsx';
 import InputFloat from '../../inputs/input-float/InputFloat.tsx';
 import ActiveButton from '../../buttons/active-button/ActiveButton.tsx';
 import InactiveButton from '../../buttons/inactive-button/InactiveButton.tsx';
-import {
-  backTestsSlice,
-  fetchStartBackTest,
-} from '../../../slices/backTestsSlice.ts';
+import { fetchStartBackTest } from '../../../slices/backTestsSlice.ts';
 
 const StartBackTestForm = () => {
   const [strategyName, setStrategyName] = useState<string>(STRATEGY_NAMES[0]);
@@ -24,6 +21,7 @@ const StartBackTestForm = () => {
 
   const dispatch = useAppDispatch();
 
+  const { error, isStarting } = useAppSelector((state) => state.backTests);
   const { items } = useAppSelector((state) => state.instrument);
   const { timeframes, backTestParams } = useAppSelector((state) => state.enum);
 
@@ -66,10 +64,6 @@ const StartBackTestForm = () => {
     return filteredParams;
   };
 
-  const handleClose = () => {
-    dispatch(backTestsSlice.actions.setShowStart(false));
-  };
-
   const handleSubmit = () => {
     const paramsString = getParamsString();
     dispatch(
@@ -80,7 +74,7 @@ const StartBackTestForm = () => {
         periodInMonth: period,
         params: paramsString,
       })
-    ).then(() => handleClose());
+    );
   };
 
   return (
@@ -141,9 +135,17 @@ const StartBackTestForm = () => {
       )}
 
       <div className={styles.buttons_container}>
-        <InactiveButton onClick={handleClose}>Отмена</InactiveButton>
+        <p className={styles.red}>{error as string}</p>
 
-        <ActiveButton onClick={handleSubmit}>Запустить тест</ActiveButton>
+        {isStarting ? (
+          <InactiveButton onClick={() => {}}>
+            Запустить Стратегию
+          </InactiveButton>
+        ) : (
+          <ActiveButton onClick={handleSubmit}>
+            Запустить Стратегию
+          </ActiveButton>
+        )}
       </div>
     </div>
   );
