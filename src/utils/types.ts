@@ -6,6 +6,8 @@ import {
 
 export interface IUser {
   phone: string;
+  chatId: string;
+  profit: number;
 }
 
 export interface IError {
