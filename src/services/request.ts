@@ -24,6 +24,7 @@ const checkResponse = async (res: Response) => {
   try {
     return await res.json();
   } catch (e) {
+    String(e);
     return null;
   }
 };

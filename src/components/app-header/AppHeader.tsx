@@ -92,9 +92,9 @@ const AppHeader = () => {
           </Link>
 
           <Link
-              to="/profile"
-              className={styles.mobile_link}
-              onClick={() => setIsMenuOpen(false)}
+            to="/profile"
+            className={styles.mobile_link}
+            onClick={() => setIsMenuOpen(false)}
           >
             Профиль
           </Link>

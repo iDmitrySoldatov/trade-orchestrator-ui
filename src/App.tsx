@@ -9,7 +9,7 @@ import { useAppDispatch } from './services/hooks.ts';
 import { fetchCheck } from './slices/userSlice.ts';
 import StrategyPage from './pages/strategy-page/StrategyPage.tsx';
 import ArchivePage from './pages/archive-page/ArchivePage.tsx';
-import ProfilePage from "./pages/profile-page/ProfilePage.tsx";
+import ProfilePage from './pages/profile-page/ProfilePage.tsx';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -38,8 +38,8 @@ function App() {
           element={<ProtectedRouteComponent element={<ArchivePage />} />}
         />
         <Route
-            path="/profile"
-            element={<ProtectedRouteComponent element={<ProfilePage />} />}
+          path="/profile"
+          element={<ProtectedRouteComponent element={<ProfilePage />} />}
         />
         <Route path="/login" element={<LoginPage />} />
         <Route
