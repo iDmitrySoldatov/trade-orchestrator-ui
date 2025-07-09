@@ -18,6 +18,7 @@ const StrategyDetails = () => {
   );
 
   const getProfit = (profit: number) => {
+    if (profit === null) return '';
     if (profit <= 0) {
       return `${profit.toFixed(2)}₽`;
     } else {
