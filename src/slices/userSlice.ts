@@ -1,6 +1,12 @@
 import { IError, IUser } from '../utils/types.ts';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { check, login, logout } from '../services/userService.ts';
+import {
+  deleteChatId,
+  getUser,
+  login,
+  logout,
+  setChatId,
+} from '../services/userService.ts';
 
 interface ILoginRequest {
   phone: string;
@@ -28,7 +34,23 @@ export const fetchLogout = createAsyncThunk<IUser>(
 export const fetchCheck = createAsyncThunk<IUser>(
   'user/fetchCheck',
   async () => {
-    return await check().then((res) => res);
+    return await getUser().then((res) => res);
+  }
+);
+
+export const fetchSetChatId = createAsyncThunk<null, string>(
+  'user/fetchSetChatId',
+  async (data, { rejectWithValue }) => {
+    return await setChatId({ chatId: data })
+      .then((res) => res)
+      .catch((err) => rejectWithValue((err as IError).message));
+  }
+);
+
+export const fetchDeleteChatId = createAsyncThunk(
+  'user/fetchDeleteChatId',
+  async () => {
+    return await deleteChatId().then((res) => res);
   }
 );
 
@@ -41,6 +63,8 @@ interface IUserSlice {
 const initialState: IUserSlice = {
   user: {
     phone: '',
+    chatId: '',
+    profit: 0,
   },
   isLoggedIn: false,
   error: '',
@@ -78,6 +102,18 @@ export const userSlice = createSlice({
       })
       .addCase(fetchCheck.rejected, (state) => {
         state.isLoggedIn = false;
+      })
+      .addCase(fetchSetChatId.pending, (state) => {
+        state.error = '';
+      })
+      .addCase(fetchSetChatId.rejected, (state, action) => {
+        state.error = action.payload as string;
+      })
+      .addCase(fetchDeleteChatId.pending, (state) => {
+        state.error = '';
+      })
+      .addCase(fetchDeleteChatId.rejected, (state, action) => {
+        state.error = action.payload as string;
       });
   },
 });

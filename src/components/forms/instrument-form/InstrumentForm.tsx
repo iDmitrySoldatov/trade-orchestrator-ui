@@ -1,7 +1,6 @@
 import styles from './instrument-form.module.css';
 import { useState } from 'react';
 import { Exchange } from '../../../utils/types.ts';
-import InactiveButton from '../../buttons/inactive-button/InactiveButton.tsx';
 import ActiveButton from '../../buttons/active-button/ActiveButton.tsx';
 import { EXCHANGES } from '../../../utils/constants.ts';
 import { useAppDispatch, useAppSelector } from '../../../services/hooks.ts';
@@ -10,10 +9,9 @@ import Dropdown from '../../inputs/dropdown/Dropdown.tsx';
 
 interface ComponentProps {
   onSubmit: (exchange: Exchange, symbol: string) => void;
-  onClose: () => void;
 }
 
-const InstrumentForm = ({ onSubmit, onClose }: ComponentProps) => {
+const InstrumentForm = ({ onSubmit }: ComponentProps) => {
   const [symbol, setSymbol] = useState('');
   const [exchange, setExchange] = useState<Exchange>('MOEX');
 
@@ -27,12 +25,6 @@ const InstrumentForm = ({ onSubmit, onClose }: ComponentProps) => {
     } else {
       onSubmit(exchange, symbol);
     }
-  };
-
-  const handleClose = () => {
-    setSymbol('');
-    setExchange('MOEX');
-    onClose();
   };
 
   const handleChangeExchange = (exchangeName: string) => {
@@ -70,7 +62,6 @@ const InstrumentForm = ({ onSubmit, onClose }: ComponentProps) => {
         </div>
 
         <div className={styles.buttons_container}>
-          <InactiveButton onClick={handleClose}>Отмена</InactiveButton>
           <ActiveButton type="submit">Сохранить</ActiveButton>
         </div>
       </form>

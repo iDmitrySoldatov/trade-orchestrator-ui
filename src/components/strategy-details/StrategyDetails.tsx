@@ -18,6 +18,7 @@ const StrategyDetails = () => {
   );
 
   const getProfit = (profit: number) => {
+    if (profit === null) return '';
     if (profit <= 0) {
       return `${profit.toFixed(2)}₽`;
     } else {
@@ -167,7 +168,7 @@ const StrategyDetails = () => {
 
                   <div className={styles.record}>
                     <p>Result</p>
-                    <p>{order.result}</p>
+                    <p>{getProfit(order.result)}</p>
                   </div>
 
                   <div className={styles.record}>

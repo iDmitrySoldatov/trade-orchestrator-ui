@@ -5,6 +5,10 @@ interface ILoginRequest {
   token: string;
 }
 
+interface IChatRequest {
+  chatId: string;
+}
+
 const LOCAL_BASE_URL = '/user';
 
 export const login = async (data: ILoginRequest) => {
@@ -13,7 +17,7 @@ export const login = async (data: ILoginRequest) => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ phone: data.phone, token: data.token }),
+    body: JSON.stringify(data),
   });
 };
 
@@ -21,6 +25,22 @@ export const logout = async () => {
   return await request(LOCAL_BASE_URL + '/logout');
 };
 
-export const check = async () => {
-  return await request(LOCAL_BASE_URL + '/check');
+export const getUser = async () => {
+  return await request(LOCAL_BASE_URL);
+};
+
+export const setChatId = async (data: IChatRequest) => {
+  return await request(LOCAL_BASE_URL + '/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+};
+
+export const deleteChatId = async () => {
+  return await request(LOCAL_BASE_URL + '/chat', {
+    method: 'DELETE',
+  });
 };

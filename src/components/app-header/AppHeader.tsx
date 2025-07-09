@@ -45,6 +45,7 @@ const AppHeader = () => {
         <Link to="/backtests">Бэктесты</Link>
         <Link to="/strategy">Стратегии</Link>
         <Link to="/archive">Архив</Link>
+        <Link to="/profile">Профиль</Link>
       </nav>
 
       <button
@@ -88,6 +89,14 @@ const AppHeader = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             Архив
+          </Link>
+
+          <Link
+            to="/profile"
+            className={styles.mobile_link}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Профиль
           </Link>
         </div>
       )}
