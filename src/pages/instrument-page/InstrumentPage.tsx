@@ -61,7 +61,7 @@ const InstrumentPage = () => {
 
       {isAddModalOpen && (
         <Modal onClose={handleClose}>
-          <InstrumentForm onSubmit={handleSubmit} onClose={handleClose} />
+          <InstrumentForm onSubmit={handleSubmit} />
         </Modal>
       )}
     </>

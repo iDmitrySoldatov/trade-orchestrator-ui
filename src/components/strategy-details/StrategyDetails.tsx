@@ -167,7 +167,7 @@ const StrategyDetails = () => {
 
                   <div className={styles.record}>
                     <p>Result</p>
-                    <p>{order.result}</p>
+                    <p>{getProfit(order.result)}</p>
                   </div>
 
                   <div className={styles.record}>
