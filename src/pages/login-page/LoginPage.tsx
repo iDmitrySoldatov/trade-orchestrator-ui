@@ -33,7 +33,7 @@ const LoginPage = () => {
   };
 
   if (isLoggedIn) {
-    return <Navigate to="/instrument" />;
+    return <Navigate to={from ? from : '/instrument'} />;
   }
 
   return (
