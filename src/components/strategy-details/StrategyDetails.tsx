@@ -51,7 +51,7 @@ const StrategyDetails = () => {
         dispatch(fetchOrders(currentStrategy.id));
         dispatch(fetchEvents(currentStrategy.id));
       }
-    }, 5000);
+    }, 10000);
 
     return () => {
       clearInterval(intervalId);

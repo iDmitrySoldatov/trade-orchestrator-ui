@@ -22,7 +22,7 @@ const StrategyPage = () => {
 
     const intervalId = setInterval(() => {
       dispatch(fetchStrategies());
-    }, 5000);
+    }, 10000);
 
     return () => {
       clearInterval(intervalId);
