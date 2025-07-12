@@ -121,7 +121,7 @@ const ReportDetails = () => {
 
           <div className={styles.record}>
             <p>Средняя прибыль по сделке</p>
-            <p>{currentReport.backTestStats.averageTradeProfit}</p>
+            <p>{currentReport.backTestStats.averageTradeProfit.toFixed(2)}₽</p>
           </div>
 
           <div className={styles.record}>
@@ -131,28 +131,39 @@ const ReportDetails = () => {
 
           <div className={styles.record}>
             <p>Успешных сделок</p>
-            <p>{currentReport.backTestStats.winRate}%</p>
+            <p>{currentReport.backTestStats.winRate.toFixed(2)}%</p>
           </div>
 
           <div className={styles.record}>
             <p>Общий баланс</p>
-            <p>{currentReport.backTestStats.totalBalance}</p>
+            <p>{currentReport.backTestStats.totalBalance.toFixed(2)}₽</p>
           </div>
 
           <div className={styles.record}>
             <p>Коэффициент Шарпа</p>
-            <p>{currentReport.backTestStats.sharpeRatio}</p>
+            <p>{currentReport.backTestStats.sharpeRatio.toFixed(4)}</p>
           </div>
 
           <div className={styles.record}>
-            <p>Максимальная просадка</p>
-            <p>{currentReport.backTestStats.maxDrawdown}</p>
+            <p>Максимальная просадка, ₽</p>
+            <p>{currentReport.backTestStats.maxDrawdown.toFixed(2)}₽</p>
+          </div>
+
+          <div className={styles.record}>
+            <p>Максимальная просадка, %</p>
+            <p>
+              {currentReport.backTestStats.initialDrawdownInterest
+                ? currentReport.backTestStats.initialDrawdownInterest.toFixed(
+                    2
+                  ) + '%'
+                : ''}
+            </p>
           </div>
 
           <div className={styles.record}>
             <p>Самая убыточная сделка</p>
             <p className={styles.red}>
-              {currentReport.backTestStats.maxLossTrade}
+              {currentReport.backTestStats.maxLossTrade.toFixed(2)}₽
             </p>
           </div>
         </div>

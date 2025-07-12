@@ -55,6 +55,7 @@ export interface IStatsFields {
   maxDrawdown: number;
   sharpeRatio: number;
   averageInterestPerMonth: number;
+  initialDrawdownInterest: number;
 }
 
 export interface ISymbol {
