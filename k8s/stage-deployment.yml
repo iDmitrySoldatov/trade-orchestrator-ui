@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: trade-front
-          image: 'docker.samurai-trading.ru/trade-front:0.2.4'
+          image: 'docker.samurai-trading.ru/trade-front:0.2.5'
           ports:
             - name: http
               containerPort: 80
