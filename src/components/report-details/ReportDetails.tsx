@@ -10,6 +10,7 @@ const ReportDetails = () => {
   const { currentReport } = useAppSelector((state) => state.backTests);
 
   const getProfitPercent = (profit: number) => {
+    if (profit === null) return '0%';
     if (profit < 1) {
       return `-${((1 - profit) * 100).toFixed(2)}%`;
     } else if (profit === 1) {
