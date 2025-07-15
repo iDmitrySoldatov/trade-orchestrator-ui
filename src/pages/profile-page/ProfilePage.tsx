@@ -38,6 +38,7 @@ const ProfilePage = () => {
   };
 
   const getProfit = (profit: number) => {
+    if (profit === null) return '0₽';
     if (profit <= 0) {
       return `${profit.toFixed(2)}₽`;
     } else {
